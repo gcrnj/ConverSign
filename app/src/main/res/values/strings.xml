@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">ConverSign</string>
+    <string name="welcome_message">Welcome \nto ConverSign</string>
+    <string name="welcome_subtitle">Let your hands do the talking! We are your game-powered coach for Filipino Sign Language. With AI sign detection, real-time feedback, and interactive challenges, you’ll level up your skills in no time.</string>
+    <string name="begin_my_journey">Begin My Journey</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="individual">Individual</string>
+    <string name="educator">Educator</string>
+    <string name="student">Student</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or">OR</string>
+    <string name="need_an_account">Need an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last name</string>
+    <string name="username">Username</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="i_agree_to_the_terms_and_conditions">I agree to the Terms and Conditions</string>
+    <string name="create_my_account">Create My Account</string>
+</resources>
