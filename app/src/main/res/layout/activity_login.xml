@@ -89,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginTop="25dp"
+        android:background="?attr/selectableItemBackground"
         android:text="@string/forgot_password"
         android:textColor="@color/deep_blue" />
 
@@ -122,6 +123,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="4dp"
             android:text="@string/sign_up"
             android:textColor="@color/deep_blue" />
     </LinearLayout>
