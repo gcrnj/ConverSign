@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".student.fragments.LessonSelectionFragment">
+    tools:context=".student.fragments.LevelSelectionFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/levelsRecyclerView"
+        android:id="@+id/sectionsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        tools:itemCount="5"
+        tools:listitem="@layout/student_selection_layout" />
 </FrameLayout>

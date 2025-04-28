@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:clickable="true"
+    android:background="@drawable/student_selection_bg"
+    android:focusable="true"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/student_selection_text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/progressIcon"
+        app:layout_constraintEnd_toStartOf="@id/progressIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/progressIcon"
+        tools:text="Lesson 1:\t\tLetters A-D" />
+
+    <ImageView
+        android:id="@+id/progressIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:adjustViewBounds="true"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/student_selection_image_color"
+        tools:src="@drawable/star" />
+</androidx.constraintlayout.widget.ConstraintLayout>

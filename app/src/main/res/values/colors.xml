@@ -13,4 +13,7 @@
     <color name="deep_blue">#011661</color>
     <color name="error_bg">#f8d7da</color>
     <color name="error_text_color">#721c24</color>
+
+    <color name="student_selection_text_color">#CEDFE7</color>
+    <color name="student_selection_image_color">#CEDFE7</color>
 </resources>

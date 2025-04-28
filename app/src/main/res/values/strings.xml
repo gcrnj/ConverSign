@@ -26,4 +26,6 @@
     <string name="invalid_credentials_please_try_again">Invalid credentials, please try again.</string>
     <string name="please_select_a_role">Please select a role.</string>
     <string name="role_cannot_be_empty">Role cannot be empty</string>
+    <string name="level_1_alphabet">LEVEL 1: Alphabet</string>
+    <string name="selection_title">%1$s %2$s:\t\t%3$s</string>
 </resources>
