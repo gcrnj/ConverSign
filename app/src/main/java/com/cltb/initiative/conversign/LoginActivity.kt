@@ -1,44 +1,44 @@
-package com.cltb.initiative.conversign;
+package com.cltb.initiative.conversign
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.cltb.initiative.conversign.databinding.ActivityLoginBinding
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.cltb.initiative.conversign.databinding.ActivityLoginBinding;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Objects;
-
-public class LoginActivity extends AppCompatActivity {
-
-    private ActivityLoginBinding binding;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left + v.getPaddingLeft(), systemBars.top, systemBars.right + v.getPaddingRight(), systemBars.bottom);
-            return insets;
-        });
-
-        setClickListeners();
+class LoginActivity : AppCompatActivity() {
+    private val binding: ActivityLoginBinding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
     }
 
-    private void setClickListeners() {
-        binding.signUpButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, SignUpActivity.class);
-            startActivity(intent);
-        });
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.enableEdgeToEdge()
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v: View, insets: WindowInsetsCompat ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(
+                systemBars.left + v.paddingLeft,
+                systemBars.top,
+                systemBars.right + v.paddingRight,
+                systemBars.bottom
+            )
+            insets
+        }
+
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
+        binding.signUpButton.setOnClickListener { v ->
+            val intent = Intent(
+                this,
+                SignUpActivity::class.java
+            )
+            startActivity(intent)
+        }
     }
 }
