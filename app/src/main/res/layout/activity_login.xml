@@ -18,60 +18,62 @@
         android:importantForAccessibility="no"
         android:src="@drawable/app_logo" />
 
-    <EditText
-        android:id="@+id/emailEditText"
+    <!-- Email -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:autofillHints="emailAddress"
-        android:drawableStart="@drawable/email_icon"
-        android:drawablePadding="15dp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:maxLines="1" />
+        app:startIconDrawable="@drawable/email_icon">
 
-    <EditText
-        android:id="@+id/passwordEditText"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Password -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="password"
-        android:drawableStart="@drawable/password_icon"
-        android:drawablePadding="15dp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:maxLines="1" />
+        app:endIconMode="password_toggle"
+        app:startIconDrawable="@drawable/password_icon">
 
-    <RadioGroup
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/errorTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:orientation="horizontal">
+        android:layout_gravity="start"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_error_bg"
+        android:padding="8dp"
+        android:textColor="@color/error_text_color"
+        android:visibility="gone"
+        tools:text="Error"
+        tools:visibility="visible" />
 
-        <RadioButton
-            android:id="@+id/individualRadioButton"
-            style="@style/RadioButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_weight="1"
-            android:text="@string/individual"
-            tools:checked="true" />
+    <ProgressBar
+        android:id="@+id/loginProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-        <RadioButton
-            android:id="@+id/educatorRadioButton"
-            style="@style/RadioButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_weight="1"
-            android:text="@string/educator" />
-
-        <RadioButton
-            android:id="@+id/studentRadioButton"
-            style="@style/RadioButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_weight="1"
-            android:text="@string/student" />
-    </RadioGroup>
+    <include
+        android:id="@+id/roleLayout"
+        layout="@layout/role_selection_layout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/loginButton"

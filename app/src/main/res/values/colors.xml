@@ -11,4 +11,6 @@
     <color name="screen_bg">#CEDFE7</color>
     <color name="transparent">#00ffffff</color>
     <color name="deep_blue">#011661</color>
+    <color name="error_bg">#f8d7da</color>
+    <color name="error_text_color">#721c24</color>
 </resources>

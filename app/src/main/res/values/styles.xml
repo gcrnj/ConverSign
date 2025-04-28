@@ -22,4 +22,9 @@
         <item name="android:maxLines">1</item>
     </style>
 
+    <style name="AppLogoStyle">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:src">@drawable/app_logo</item>
+    </style>
+
 </resources>

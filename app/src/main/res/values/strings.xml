@@ -20,4 +20,10 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="i_agree_to_the_terms_and_conditions">I agree to the Terms and Conditions</string>
     <string name="create_my_account">Create My Account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="please_enter_email_or_password">Please enter email or password.</string>
+    <string name="invalid_credentials_please_try_again">Invalid credentials, please try again.</string>
+    <string name="please_select_a_role">Please select a role.</string>
+    <string name="role_cannot_be_empty">Role cannot be empty</string>
 </resources>
