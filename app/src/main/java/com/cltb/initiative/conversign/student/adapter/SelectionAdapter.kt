@@ -4,25 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cltb.initiative.conversign.R
-import com.cltb.initiative.conversign.data.SelectionData
+import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.databinding.StudentSelectionLayoutBinding
 
-class SelectionAdapter(private val selectionList: List<SelectionData>, private val onClickListener: (SelectionData) -> Unit) :
+class SelectionAdapter(private val selectionList: List<Level>, private val onClickListener: (Level) -> Unit) :
     RecyclerView.Adapter<SelectionAdapter.SelectionViewHolder>() {
 
 
     inner class SelectionViewHolder(val binding: StudentSelectionLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(selectionData: SelectionData) = with(binding) {
-            titleTextView.text =
-                binding.root.context.getString(
-                    R.string.selection_title,
-                    selectionData.type,
-                    selectionData.id.toString(),
-                    selectionData.name,
-                )
+        fun bind(level: Level) = with(binding) {
+            titleTextView.text = level.name
             root.setOnClickListener {
-                onClickListener.invoke(selectionData)
+                onClickListener.invoke(level)
             }
         }
     }
