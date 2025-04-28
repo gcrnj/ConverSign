@@ -10,6 +10,7 @@
     tools:context=".student.StudentsActivity">
 
     <ImageView
+        android:id="@+id/appLogo"
         style="@style/AppLogoStyle"
         android:layout_width="150dp"
         android:layout_height="wrap_content"

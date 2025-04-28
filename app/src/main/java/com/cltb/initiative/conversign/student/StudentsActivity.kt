@@ -42,9 +42,18 @@ class StudentsActivity : AppCompatActivity() {
             )
             insets
         }
-        onBackPressedDispatcher.addCallback(this, backPressedCallback)
+
+        handleCLickListeners()
 
         changeFragment(LevelSelectionFragment::class.java)
+    }
+
+    private fun handleCLickListeners() {
+        onBackPressedDispatcher.addCallback(this, backPressedCallback)
+        binding.appLogo.setOnClickListener {
+            // Todo - Go to student profile view and add logout
+        }
+
     }
 
     // Modified fragment transaction with back stack

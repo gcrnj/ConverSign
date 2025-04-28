@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.cltb.initiative.conversign.data.Roles
 import com.cltb.initiative.conversign.databinding.ActivitySignUpBinding
 import com.cltb.initiative.conversign.student.StudentsActivity
+import com.cltb.initiative.conversign.teacher.TeachersActivity
 import com.cltb.initiative.conversign.utils.FireStoreUtils
 import com.cltb.initiative.conversign.utils.SharedPrefUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -183,7 +184,7 @@ class SignUpActivity : AppCompatActivity() {
                 )
                 when(role) {
                     Roles.Student.name -> StudentsActivity::class.java
-                    Roles.Educator.name -> null // Todo - add the educator's activity
+                    Roles.Educator.name -> TeachersActivity::class.java
                     Roles.Individual.name -> null // Todo - add the educator's activity
                     else -> null
                 }?.let { nextActivity ->

@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.cltb.initiative.conversign.data.Roles
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.student.StudentsActivity
+import com.cltb.initiative.conversign.teacher.TeachersActivity
 import com.cltb.initiative.conversign.utils.FireStoreUtils
 import com.cltb.initiative.conversign.utils.SharedPrefUtils
 import com.google.firebase.Firebase
@@ -70,7 +71,13 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     Roles.Educator -> {
-
+                        startActivity(
+                            Intent(
+                                this@MainActivity,
+                                TeachersActivity::class.java
+                            )
+                        )
+                        finish()
                     }
 
                     Roles.Individual -> {
