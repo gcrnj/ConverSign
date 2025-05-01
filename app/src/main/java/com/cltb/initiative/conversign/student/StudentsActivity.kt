@@ -1,5 +1,6 @@
 package com.cltb.initiative.conversign.student
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -81,7 +82,12 @@ class StudentsActivity : AppCompatActivity() {
     private fun handleCLickListeners() {
         onBackPressedDispatcher.addCallback(this, backPressedCallback)
         binding.appLogo.setOnClickListener {
-            // Todo - Go to student profile view and add logout
+            startActivity(
+                Intent(
+                    this,
+                    StudentProfileActivity::class.java
+                )
+            )
         }
         binding.backButton.setOnClickListener {
             backPressedCallback.handleOnBackPressed()

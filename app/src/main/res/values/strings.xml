@@ -38,4 +38,5 @@
     <string name="section_select">Section Select</string>
     <string name="section_selection">Select a Section</string>
     <string name="back">Back</string>
+    <string name="logout">Logout</string>
 </resources>

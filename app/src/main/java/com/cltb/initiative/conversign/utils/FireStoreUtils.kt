@@ -27,6 +27,9 @@ object FireStoreUtils {
 
     // Levels
     fun progressCollectionRef(userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "") = studentCollectionRef(userId).collection("progress")
+    fun logout() {
+        FirebaseAuth.getInstance().signOut()
+    }
 
     object StudentKeys {
         const val FIRST_NAME = "firstName"

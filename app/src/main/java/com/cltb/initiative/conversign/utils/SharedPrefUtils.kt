@@ -21,6 +21,14 @@ class SharedPrefUtils(private val context: Context) {
         return sharedPreferences.getString(key.name, null)
     }
 
+    fun logout() {
+        val sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+        FireStoreUtils.logout()
+    }
+
     enum class Keys {
         Role,
     }
