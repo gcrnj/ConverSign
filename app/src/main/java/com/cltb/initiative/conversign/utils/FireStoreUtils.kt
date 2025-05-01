@@ -26,8 +26,7 @@ object FireStoreUtils {
     fun currentUserCollectionRef(role: String) = userCollectionRef(role, FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
     // Levels
-    val allLevelsCollectionRef = FirebaseFirestore.getInstance().collection("Levels")
-    fun lessonDocumentRef(lessonId: String) = allLevelsCollectionRef.document(lessonId).collection("Lessons")
+    fun progressCollectionRef(userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "") = studentCollectionRef(userId).collection("progress")
 
     object StudentKeys {
         const val FIRST_NAME = "firstName"

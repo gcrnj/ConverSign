@@ -21,6 +21,10 @@ class LevelSelectionFragment : Fragment() {
     private var _binding: FragmentLevelSelectionBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel by lazy {
+        (requireActivity() as StudentsActivity).viewModel
+    }
+
     private val section: Section? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable(SECTION, Section::class.java)
@@ -46,20 +50,33 @@ class LevelSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = LevelSelectionAdapter(levels) { level ->
-            (requireActivity() as StudentsActivity).changeFragment(
-                fragmentClass = LessonFragment::class.java,
-                args = Bundle().apply {
-                    putParcelable(LessonFragment.LEVEL, level)
-                }
-            )
-        }
+        setTexts()
+        observeViewModel()
+
+    }
+
+    private fun setTexts() {
         binding.selectedSectionTextView.text = section?.name.orEmpty()
+    }
+
+    private fun observeViewModel() {
+
+        viewModel.progress.observe(viewLifecycleOwner) { progress ->
+            progress ?: return@observe
+
+            val adapter = LevelSelectionAdapter(levels, progress) { level ->
+                (requireActivity() as StudentsActivity).changeFragment(
+                    fragmentClass = LessonFragment::class.java,
+                    args = Bundle().apply {
+                        putParcelable(LessonFragment.LEVEL, level)
+                    }
+                )
+            }
             binding.levelsRecyclerView.apply {
                 this.adapter = adapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-
+        }
     }
 
 

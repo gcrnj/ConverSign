@@ -8,11 +8,13 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.cltb.initiative.conversign.data.Level
+import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.databinding.StudentSelectionInvertedLayoutBinding
 import com.cltb.initiative.conversign.databinding.StudentSelectionLayoutBinding
 
 class LevelSelectionAdapter(
     private val selectionList: List<Level>,
+    private val progress: Progress,
     private val onClickListener: (Level) -> Unit
 ) :
     RecyclerView.Adapter<LevelSelectionAdapter.BaseSelectionViewHolder>() {
@@ -43,7 +45,17 @@ class LevelSelectionAdapter(
                 ),
             )
             root.setOnClickListener {
-                onClickListener.invoke(level)
+                if (progress.currentLevel >= level.levelNumber) {
+                    onClickListener.invoke(level)
+                }
+            }
+
+
+            // Enable / Disable
+            if (progress.currentLevel >= level.levelNumber) {
+                root.alpha = 1f
+            } else {
+                root.alpha = 0.5f
             }
         }
     }

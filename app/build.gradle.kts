@@ -62,5 +62,8 @@ dependencies {
     implementation(libs.firebase.analytics)
 
     implementation(libs.gson)
+    implementation(libs.fragment.ktx) // or latest version
+    implementation (libs.lifecycle.viewmodel.ktx)
+    implementation (libs.lifecycle.livedata.ktx)
 
 }

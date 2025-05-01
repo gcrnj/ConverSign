@@ -3,11 +3,13 @@ package com.cltb.initiative.conversign.student.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.data.Section
 import com.cltb.initiative.conversign.databinding.StudentSectionSelectionLayoutBinding
 
 class SectionSelectionAdapter(
     private val sectionList: List<Section>,
+    private val progress: Progress,
     private val onClick: (Section) -> Unit
 ) : RecyclerView.Adapter<SectionSelectionAdapter.SectionViewHolder>() {
 
@@ -16,8 +18,17 @@ class SectionSelectionAdapter(
 
         fun bind(section: Section) = with(binding) {
             sectionTitleTextView.text = section.name
-            binding.root.setOnClickListener {
-                onClick(section)
+            root.setOnClickListener {
+                if (progress.currentSection >= section.sectionNumber) {
+                    onClick(section)
+                }
+            }
+
+            // Enable / Disable
+            if (progress.currentSection >= section.sectionNumber) {
+                root.alpha = 1f
+            } else {
+                root.alpha = 0.5f
             }
         }
     }

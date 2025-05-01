@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cltb.initiative.conversign.data.sections
 import com.cltb.initiative.conversign.databinding.FragmentSectionBinding
 import com.cltb.initiative.conversign.student.StudentsActivity
 import com.cltb.initiative.conversign.student.adapter.SectionSelectionAdapter
+import com.cltb.initiative.conversign.student.viewmodels.ProgressViewModel
 import java.util.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +27,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class SectionFragment : Fragment() {
 
+    val viewModel: ProgressViewModel by lazy {
+        (requireActivity() as StudentsActivity).viewModel
+    }
 
     private var _binding: FragmentSectionBinding? = null
     private val binding get() = _binding!!
@@ -39,20 +45,29 @@ class SectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = SectionSelectionAdapter(sections) { section ->
-            (requireActivity() as StudentsActivity).changeFragment(
-                fragmentClass = LevelSelectionFragment::class.java,
-                args = Bundle().apply {
-                    putParcelable(LevelSelectionFragment.SECTION, section)
-                }
-            )
-        }
-        binding.sectionsRecyclerView.apply {
-            this.adapter = adapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
+        observeViewModel()
 
     }
+
+    private fun observeViewModel() {
+        viewModel.progress.observe(viewLifecycleOwner) { progress ->
+            progress ?: return@observe
+
+            val adapter = SectionSelectionAdapter(sections, progress) { section ->
+                (requireActivity() as StudentsActivity).changeFragment(
+                    fragmentClass = LevelSelectionFragment::class.java,
+                    args = Bundle().apply {
+                        putParcelable(LevelSelectionFragment.SECTION, section)
+                    }
+                )
+            }
+            binding.sectionsRecyclerView.apply {
+                this.adapter = adapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

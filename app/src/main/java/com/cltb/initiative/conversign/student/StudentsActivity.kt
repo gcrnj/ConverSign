@@ -10,14 +10,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.databinding.ActivityStudentsBinding
-import com.cltb.initiative.conversign.student.fragments.LevelSelectionFragment
 import com.cltb.initiative.conversign.student.fragments.SectionFragment
+import androidx.activity.viewModels // For Activity
+import com.cltb.initiative.conversign.student.viewmodels.ProgressViewModel
+import com.cltb.initiative.conversign.utils.ViewModelUtils.observeOnce
+import com.google.firebase.auth.FirebaseAuth
 
 class StudentsActivity : AppCompatActivity() {
 
     private val binding: ActivityStudentsBinding by lazy {
         ActivityStudentsBinding.inflate(layoutInflater)
     }
+    val viewModel: ProgressViewModel by viewModels()
 
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -54,12 +58,24 @@ class StudentsActivity : AppCompatActivity() {
         }
 
         handleCLickListeners()
+        setupViewModel()
+    }
 
-        // First Load
-        changeFragment(
-            fragmentClass = SectionFragment::class.java,
-            showBackButton = false
-        )
+    private fun setupViewModel() {
+
+        viewModel.loadProgressFromFireStore(FirebaseAuth.getInstance().currentUser?.uid ?: "")
+
+        viewModel.progress.observeOnce(this) { progress ->
+            progress?.let {
+                // First Load
+                changeFragment(
+                    fragmentClass = SectionFragment::class.java,
+                    showBackButton = false
+                )
+            } ?: run {
+
+            }
+        }
     }
 
     private fun handleCLickListeners() {
