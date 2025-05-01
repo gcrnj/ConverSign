@@ -35,4 +35,6 @@
     <string name="challenge">Challenge</string>
     <string name="lesson">Lesson</string>
     <string name="lesson_number">Lesson %1$d</string>
+    <string name="section_select">Section Select</string>
+    <string name="section_selection">Select a Section</string>
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sectionRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/sectionTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/deep_green"
+        android:fontFamily="@font/k2d_bold"
+        android:gravity="start|center"
+        android:paddingStart="@dimen/app_padding"
+        android:paddingEnd="0dp"
+        android:text="@string/section_select"
+        android:textColor="@color/screen_bg"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

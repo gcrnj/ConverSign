@@ -5,21 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/app_padding"
-    tools:context=".student.fragments.SectionFragment">
+    tools:context=".student.fragments.LevelSelectionFragment">
 
     <TextView
+        android:id="@+id/selectedSectionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/k2d_extrabold"
-        android:text="@string/section_selection"
+        android:text="@string/section_1_rookie"
         android:textColor="@color/deep_green"
         android:textSize="28sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sectionsRecyclerView"
+        android:id="@+id/levelsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:itemCount="5"
-        tools:listitem="@layout/student_section_selection_layout" />
+        tools:listitem="@layout/student_selection_layout" />
 </LinearLayout>

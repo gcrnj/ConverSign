@@ -5,19 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.LayoutRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
-import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.databinding.StudentSelectionInvertedLayoutBinding
 import com.cltb.initiative.conversign.databinding.StudentSelectionLayoutBinding
 
-class SelectionAdapter(
+class LevelSelectionAdapter(
     private val selectionList: List<Level>,
     private val onClickListener: (Level) -> Unit
 ) :
-    RecyclerView.Adapter<SelectionAdapter.BaseSelectionViewHolder>() {
+    RecyclerView.Adapter<LevelSelectionAdapter.BaseSelectionViewHolder>() {
 
     private enum class ViewType {
         NORMAL,

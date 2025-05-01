@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.databinding.ActivityStudentsBinding
 import com.cltb.initiative.conversign.student.fragments.LevelSelectionFragment
+import com.cltb.initiative.conversign.student.fragments.SectionFragment
 
 class StudentsActivity : AppCompatActivity() {
 
@@ -47,7 +48,7 @@ class StudentsActivity : AppCompatActivity() {
         handleCLickListeners()
 
         // First Load
-        changeFragment(LevelSelectionFragment::class.java)
+        changeFragment(SectionFragment::class.java)
     }
 
     private fun handleCLickListeners() {

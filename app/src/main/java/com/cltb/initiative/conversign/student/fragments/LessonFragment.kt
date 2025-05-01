@@ -7,24 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cltb.initiative.conversign.R
-import com.cltb.initiative.conversign.data.Lesson
-import com.cltb.initiative.conversign.databinding.FragmentLevelsBinding
+import com.cltb.initiative.conversign.data.Level
+import com.cltb.initiative.conversign.databinding.FragmentLessonBinding
 
 
 class LessonFragment : Fragment() {
 
-    private var _binding: FragmentLevelsBinding? = null
+    private var _binding: FragmentLessonBinding? = null
     private val binding get() = _binding!!
 
     private var currentLesson = 1
     private var isLessonCompleted = false
 
-    private val lessons: List<Lesson>? by lazy {
+    private val level: Level? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelableArrayList(LESSON, Lesson::class.java)
+            arguments?.getParcelable(LEVEL, Level::class.java)
         } else {
             @Suppress("DEPRECATION")
-            arguments?.getParcelableArrayList(LESSON)
+            arguments?.getParcelable(LEVEL)
         }
     }
 
@@ -32,7 +32,7 @@ class LessonFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLevelsBinding.inflate(inflater, container, false)
+        _binding = FragmentLessonBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -47,7 +47,7 @@ class LessonFragment : Fragment() {
         lessonsLinearLayout.visibility = if (isLessonCompleted) View.GONE else View.VISIBLE
         challengeConstraintLayout.visibility = if (isLessonCompleted) View.VISIBLE else View.GONE
 
-        val lesson = lessons?.find { it.lessonNumber == currentLesson }
+        val lesson = level?.lessons?.find { it.lessonNumber == currentLesson }
         lesson?.let {
             // Lesson or Challenge?
             val challenge = it.lessonChallenges.getOrNull(currentLesson)
@@ -69,6 +69,6 @@ class LessonFragment : Fragment() {
     }
 
     companion object {
-        const val LESSON = "LESSON"
+        const val LEVEL = "LEVEL"
     }
 }

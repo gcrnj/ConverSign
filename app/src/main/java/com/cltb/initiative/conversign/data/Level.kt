@@ -2,7 +2,6 @@ package com.cltb.initiative.conversign.data
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
-import androidx.annotation.LayoutRes
 import com.cltb.initiative.conversign.levels.Alphabet
 import kotlinx.parcelize.Parcelize
 
@@ -31,6 +30,6 @@ data class LessonChallenge(
     val challengeHint: String = "",
 ) : Parcelable
 
-val levels = listOf(
+val rookieLevels: List<Level> = listOf(
     Alphabet,
 )
