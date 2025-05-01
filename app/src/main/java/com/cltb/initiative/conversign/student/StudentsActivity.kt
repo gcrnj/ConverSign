@@ -27,6 +27,14 @@ class StudentsActivity : AppCompatActivity() {
             } else {
                 onBackPressedDispatcher.onBackPressed()
             }
+
+            // Show or hide back button
+            // Check after popbackstack
+            binding.backButton.visibility = if (supportFragmentManager.backStackEntryCount <= 2) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
         }
     }
 
@@ -48,7 +56,10 @@ class StudentsActivity : AppCompatActivity() {
         handleCLickListeners()
 
         // First Load
-        changeFragment(SectionFragment::class.java)
+        changeFragment(
+            fragmentClass = SectionFragment::class.java,
+            showBackButton = false
+        )
     }
 
     private fun handleCLickListeners() {
@@ -56,11 +67,18 @@ class StudentsActivity : AppCompatActivity() {
         binding.appLogo.setOnClickListener {
             // Todo - Go to student profile view and add logout
         }
+        binding.backButton.setOnClickListener {
+            backPressedCallback.handleOnBackPressed()
+        }
 
     }
 
     // Modified fragment transaction with back stack
-    fun changeFragment(fragmentClass: Class<out Fragment>, args: Bundle? = null) {
+    fun changeFragment(
+        fragmentClass: Class<out Fragment>,
+        args: Bundle? = null,
+        showBackButton: Boolean = true,
+    ) {
         val fragment = fragmentClass.getDeclaredConstructor().newInstance().apply {
             arguments = args
         }
@@ -77,6 +95,13 @@ class StudentsActivity : AppCompatActivity() {
                 addToBackStack(fragmentClass.simpleName)
             }
             .commit()
+
+        // Show back button
+        binding.backButton.visibility = if (showBackButton) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
 }
