@@ -1,13 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".student.fragments.LessonSelectionFragment">
+    android:background="@color/screen_bg"
+    tools:context=".student.fragments.LessonFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/levelsRecyclerView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headerConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/deep_green"
+                android:padding="@dimen/app_padding"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/gameTypeTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/k2d_semibold"
+                    android:textColor="@color/screen_bg"
+                    android:textSize="28sp"
+                    app:layout_constraintEnd_toStartOf="@+id/roadmapButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Lesson / Challenge" />
+
+                <TextView
+                    android:id="@+id/headerSubtitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/screen_bg"
+                    app:layout_constraintEnd_toEndOf="@+id/gameTypeTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gameTypeTextView"
+                    tools:text="Lesson / Challenge" />
+
+                <ImageButton
+                    android:id="@+id/roadmapButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:adjustViewBounds="false"
+                    android:backgroundTint="@color/screen_bg"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/roadmap"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    Lesson-->
+
+            <LinearLayout
+                android:id="@+id/lessonsLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="155dp"
+                    android:layout_height="155dp"
+                    android:importantForAccessibility="no"
+                    tools:src="@drawable/email_icon" />
+
+                <TextView
+                    android:id="@+id/answer1TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/deep_blue"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:text="A" />
+
+                <TextView
+                    android:id="@+id/lessonHint1TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/deep_blue"
+                    android:textStyle="italic"
+                    tools:text="Close your hand.." />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="155dp"
+                    android:layout_height="155dp"
+                    android:layout_marginTop="110dp"
+                    android:importantForAccessibility="no"
+                    tools:src="@drawable/email_icon" />
+
+                <TextView
+                    android:id="@+id/answer2TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/deep_blue"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:text="B" />
+
+                <TextView
+                    android:id="@+id/lessonHint2TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/deep_blue"
+                    android:textStyle="italic"
+                    tools:text="Close your hand.." />
+            </LinearLayout>
+
+            <!--    Challenge-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/challengeConstraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/lessonsLinearLayout"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tipTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/app_padding"
+                    android:text="@string/ai_camera_tip"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--                todo Replace with cam-->
+                <ImageView
+                    android:id="@+id/cameraView"
+                    android:layout_width="215dp"
+                    android:layout_height="215dp"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tipTextView" />
+
+                <TextView
+                    android:id="@+id/gestureDetectedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/k2d_extrabolditalic"
+                    android:gravity="center"
+                    android:text="@string/gesture_detected"
+                    android:textColor="@color/nice_job_text_color"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/cameraView" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/app_padding"
+                    android:text="@string/previous"
+                    android:textColor="@color/deep_green"
+                    app:backgroundTint="@color/screen_bg"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gestureDetectedTextView"
+                    app:strokeColor="@color/deep_green"
+                    app:strokeWidth="1dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/niceJobLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/nice_job_bg_color"
+        android:orientation="vertical"
+        android:padding="@dimen/app_padding"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/k2d_semibold"
+            android:text="Nice Job!"
+            android:textColor="@color/nice_job_text_color"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You got that correctly"
+            android:textColor="@color/nice_job_text_color" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/screen_bg"
+            app:backgroundTint="@color/nice_job_button_bg_color"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

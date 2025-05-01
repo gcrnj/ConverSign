@@ -30,9 +30,9 @@ class LevelSelectionFragment : Fragment() {
 
         val adapter = SelectionAdapter(levels) { section ->
             (requireActivity() as StudentsActivity).changeFragment(
-                fragmentClass = LessonSelectionFragment::class.java,
+                fragmentClass = LessonFragment::class.java,
                 args = Bundle().apply {
-                    putParcelable(LessonSelectionFragment.LESSON, section)
+                    putParcelableArray(LessonFragment.LESSON, section.lessons.toTypedArray())
                 }
             )
         }

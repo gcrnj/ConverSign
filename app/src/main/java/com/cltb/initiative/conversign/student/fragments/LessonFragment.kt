@@ -6,21 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.cltb.initiative.conversign.data.Lesson
 import com.cltb.initiative.conversign.databinding.FragmentLevelsBinding
-import com.cltb.initiative.conversign.student.adapter.SelectionAdapter
-import com.cltb.initiative.conversign.utils.FireStoreUtils
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 
 
-class LessonSelectionFragment : Fragment() {
+class LessonFragment : Fragment() {
 
     private var _binding: FragmentLevelsBinding? = null
     private val binding get() = _binding!!
 
+    private var currentLesson = 1
+    private var isLessonCompleted = false
 
     private val lessons: List<Lesson>? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -42,9 +38,34 @@ class LessonSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lessons?.let {
+        updateUI()
+    }
 
+    private fun updateUI() = with(binding) {
+        niceJobLinearLayout.visibility = View.GONE
+        lessonsLinearLayout.visibility = if(isLessonCompleted) View.GONE else View.VISIBLE
+        challengeConstraintLayout.visibility = if(isLessonCompleted) View.VISIBLE else View.GONE
 
+        val lesson = lessons?.find { it.lessonNumber == currentLesson }
+        lesson?.let {
+            // Lesson or Challenge?
+            val challenge = it.lessonChallenges.getOrNull(currentLesson)
+
+            if(!isLessonCompleted) {
+                // Lesson first
+                challenge?.let { safeChallenge ->
+                    gameTypeTextView.text = "Lesson"
+                    headerSubtitleTextView.text = safeChallenge.lessonHint
+                }
+            } else {
+                // Challenge now
+                challenge?.let { safeChallenge ->
+                    gameTypeTextView.text = "Challenge"
+                    headerSubtitleTextView.text = safeChallenge.challengeHint
+                }
+            }
+        } ?: run {
+            // Done
         }
     }
 

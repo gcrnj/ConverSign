@@ -45,6 +45,7 @@ class StudentsActivity : AppCompatActivity() {
 
         handleCLickListeners()
 
+        // First Load
         changeFragment(LevelSelectionFragment::class.java)
     }
 

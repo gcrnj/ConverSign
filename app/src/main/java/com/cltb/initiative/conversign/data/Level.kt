@@ -1,6 +1,8 @@
 package com.cltb.initiative.conversign.data
 
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
 import com.cltb.initiative.conversign.levels.Alphabet
 import kotlinx.parcelize.Parcelize
 
@@ -8,24 +10,26 @@ import kotlinx.parcelize.Parcelize
 open class Level(
     val name: String,
     val levelNumber: Int,
+    @DrawableRes val icon: Int,
     val lessons: List<Lesson>,
-): Parcelable
+) : Parcelable
 
+/** @param lessonChallenges is also the lesson */
 @Parcelize
 data class Lesson(
     val name: String,
     val lessonNumber: Int,
-    val challenges: List<Challenge>,
-): Parcelable
+    val lessonChallenges: List<LessonChallenge>,
+) : Parcelable
 
 @Parcelize
-data class Challenge(
+data class LessonChallenge(
     val image: Int,
     val answer: String,
     val lessonHint: String = "",
     val challengeHint: String = "",
-): Parcelable
+) : Parcelable
 
 val levels = listOf(
     Alphabet,
-    )
+)

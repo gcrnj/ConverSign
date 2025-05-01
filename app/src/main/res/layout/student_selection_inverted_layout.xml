@@ -13,26 +13,26 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/right_circular_corner_box"
-        android:fontFamily="@font/k2d_semibold"
-        android:gravity="center|start"
         android:minHeight="58dp"
+        android:background="@drawable/left_circular_corner_box"
+        android:fontFamily="@font/k2d_semibold"
+        android:gravity="center|end"
         android:paddingHorizontal="8dp"
         android:textColor="@color/student_selection_text_color"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/iconBackgroundView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iconBackgroundView"
+        app:layout_constraintEnd_toStartOf="@id/iconBackgroundView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/iconBackgroundView"
-        tools:text="Alphabet" />
+        tools:text="Numbers" />
 
     <View
         android:id="@+id/iconBackgroundView"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@drawable/circular_corner_box"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -40,6 +40,7 @@
         android:layout_width="57dp"
         android:layout_height="57dp"
         android:importantForAccessibility="no"
+        android:src="@drawable/number_1"
         app:layout_constraintBottom_toBottomOf="@id/iconBackgroundView"
         app:layout_constraintEnd_toEndOf="@id/iconBackgroundView"
         app:layout_constraintStart_toStartOf="@id/iconBackgroundView"

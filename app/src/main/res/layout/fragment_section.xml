@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/app_padding"
     tools:context=".student.fragments.LevelSelectionFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sectionsRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:itemCount="5"
-        tools:listitem="@layout/student_selection_layout" />
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/k2d_extrabold"
+            android:text="@string/section_1_rookie"
+            android:textColor="@color/deep_green"
+            android:textSize="28sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sectionsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="5"
+            tools:listitem="@layout/student_selection_layout" />
+    </LinearLayout>
+</ScrollView>

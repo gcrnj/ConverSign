@@ -28,4 +28,8 @@
     <string name="role_cannot_be_empty">Role cannot be empty</string>
     <string name="level_1_alphabet">LEVEL 1: Alphabet</string>
     <string name="selection_title">%1$s %2$s:\t\t%3$s</string>
+    <string name="ai_camera_tip">Tip: For the best experience, ensure the camera has a clear view—no obstructions between you and the lens. Stay in sight, stay sharp!</string>
+    <string name="gesture_detected">Gesture Detected!</string>
+    <string name="previous">Previous</string>
+    <string name="section_1_rookie">Section 1: Rookie</string>
 </resources>
