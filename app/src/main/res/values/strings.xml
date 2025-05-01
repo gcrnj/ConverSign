@@ -32,4 +32,7 @@
     <string name="gesture_detected">Gesture Detected!</string>
     <string name="previous">Previous</string>
     <string name="section_1_rookie">Section 1: Rookie</string>
+    <string name="challenge">Challenge</string>
+    <string name="lesson">Lesson</string>
+    <string name="lesson_number">Lesson %1$d</string>
 </resources>

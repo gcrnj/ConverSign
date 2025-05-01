@@ -12,6 +12,7 @@ object Alphabet : Level(
     lessons = listOf(
         Lesson(
             name = "Lesson 1: Letters A-D",
+            description = "Letters A-D",
             lessonNumber = 1,
             lessonChallenges = listOf(
                 LessonChallenge(
@@ -38,6 +39,7 @@ object Alphabet : Level(
         ),
         Lesson(
             name = "Lesson 2: Letters E-H",
+            description = "Letters E-H",
             lessonNumber = 2,
             lessonChallenges = listOf(
                 LessonChallenge(
@@ -64,6 +66,7 @@ object Alphabet : Level(
         ),
         Lesson(
             name = "Lesson 3: Letters I-L",
+            description = "Letters I-L",
             lessonNumber = 3,
             lessonChallenges = listOf(
                 LessonChallenge(
@@ -91,6 +94,7 @@ object Alphabet : Level(
         ),
         Lesson(
             name = "Lesson 4: Letters M-P",
+            description = "Letters M-P",
             lessonNumber = 4,
             lessonChallenges = listOf(
                 LessonChallenge(
@@ -117,6 +121,7 @@ object Alphabet : Level(
         ),
         Lesson(
             name = "Lesson 5: Letters Q-U",
+            description = "Letters Q-U",
             lessonNumber = 5,
             lessonChallenges = listOf(
                 LessonChallenge(
@@ -148,6 +153,7 @@ object Alphabet : Level(
         ),
         Lesson(
             name = "Lesson 6: Letters V-Z",
+            description = "Letters V-Z",
             lessonNumber = 6,
             lessonChallenges = listOf(
                 LessonChallenge(

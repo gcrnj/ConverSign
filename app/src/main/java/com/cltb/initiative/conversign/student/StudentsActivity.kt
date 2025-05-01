@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.databinding.ActivityStudentsBinding
 import com.cltb.initiative.conversign.student.fragments.LevelSelectionFragment
 
@@ -64,6 +65,12 @@ class StudentsActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_right,   // enter (Fragment B comes in from right)
+                R.anim.slide_out_left,   // exit (Fragment A moves left)
+                R.anim.slide_in_left,    // popEnter (Fragment A comes in from left)
+                R.anim.slide_out_right   // popExit (Fragment B moves right)
+            )
             .replace(binding.selectionFrameLayout.id, fragment)
             .apply {
                 addToBackStack(fragmentClass.simpleName)

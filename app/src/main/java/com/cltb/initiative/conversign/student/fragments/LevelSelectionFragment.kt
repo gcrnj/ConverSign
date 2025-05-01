@@ -32,7 +32,7 @@ class LevelSelectionFragment : Fragment() {
             (requireActivity() as StudentsActivity).changeFragment(
                 fragmentClass = LessonFragment::class.java,
                 args = Bundle().apply {
-                    putParcelableArray(LessonFragment.LESSON, section.lessons.toTypedArray())
+                    putParcelableArrayList(LessonFragment.LESSON, ArrayList(section.lessons))
                 }
             )
         }

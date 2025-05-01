@@ -18,6 +18,7 @@ open class Level(
 @Parcelize
 data class Lesson(
     val name: String,
+    val description: String,
     val lessonNumber: Int,
     val lessonChallenges: List<LessonChallenge>,
 ) : Parcelable
