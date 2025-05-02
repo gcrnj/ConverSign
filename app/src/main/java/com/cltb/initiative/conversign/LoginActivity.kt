@@ -103,11 +103,13 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(email: String, selectedRole: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
         FireStoreUtils
-            .allStudentsCollectionRef
-            .whereEqualTo("role", selectedRole) // Filter by role
+            .userCollectionRef(
+                role = selectedRole,
+                userId = userId
+            )
             .get() // Retrieve all documents with that role
-            .addOnSuccessListener { querySnapshot ->
-                querySnapshot.documents.find { it.id == userId }?.let { document ->
+            .addOnCompleteListener { snapshot ->
+                snapshot.result?.let { document ->
                     // Found the current user's document, parse it
                     SharedPrefUtils(this).saveData(
                         SharedPrefUtils.Keys.Role,
@@ -140,6 +142,7 @@ class LoginActivity : AppCompatActivity() {
                 } ?: run {
                     // Logged in but no document was found for the current user
                     Log.d("updateUI", "No user document found with the selected role.")
+                    Log.d("updateUI", "Exception: ${snapshot.exception}")
                     Log.d("updateUI", "Starting SignUpActivity")
                     val intent = Intent(
                         this,

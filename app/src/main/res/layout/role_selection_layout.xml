@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="35dp">
+    android:layout_marginTop="35dp"
+    android:orientation="vertical">
 
     <RadioGroup
         android:id="@+id/roleRadioGroup"
@@ -13,12 +13,22 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/studentRadioButton"
+            style="@style/RadioButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/student" />
+
+        <RadioButton
             android:id="@+id/individualRadioButton"
             style="@style/RadioButtonStyle"
             android:layout_width="0dp"
             android:layout_height="28dp"
             android:layout_weight="1"
             android:text="@string/individual"
+            android:visibility="gone"
             tools:checked="true" />
 
         <RadioButton
@@ -28,13 +38,5 @@
             android:layout_height="28dp"
             android:layout_weight="1"
             android:text="@string/educator" />
-
-        <RadioButton
-            android:id="@+id/studentRadioButton"
-            style="@style/RadioButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_weight="1"
-            android:text="@string/student" />
     </RadioGroup>
 </LinearLayout>
