@@ -2,13 +2,17 @@ package com.cltb.initiative.conversign.student
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cltb.initiative.conversign.MainActivity
+import com.cltb.initiative.conversign.R
+import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.databinding.ActivityStudentProfileBinding
-import com.cltb.initiative.conversign.utils.FireStoreUtils
+import com.cltb.initiative.conversign.student.viewmodels.StudentProfileViewModel
 import com.cltb.initiative.conversign.utils.SharedPrefUtils
 
 class StudentProfileActivity : AppCompatActivity() {
@@ -16,6 +20,7 @@ class StudentProfileActivity : AppCompatActivity() {
     val binding: ActivityStudentProfileBinding by lazy {
         ActivityStudentProfileBinding.inflate(layoutInflater)
     }
+    val viewModel: StudentProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +36,33 @@ class StudentProfileActivity : AppCompatActivity() {
             )
             insets
         }
-
+        setupObservers()
         setClickListeners()
+    }
+
+    private fun setupObservers() {
+        viewModel.getStudent()
+        viewModel.student.observe(this) { student ->
+            updateUI(student)
+        }
+    }
+
+    private fun updateUI(student: Student?) = with(binding){
+        val  buttonsVisible = if (student != null) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        editProfileButton.visibility = buttonsVisible
+        logoutButton.visibility = buttonsVisible
+
+        student ?: return
+        fullNameTextView.text = student.fullName()
+        emailTextView.text = student.email
+        phoneTextView.text = student.phone
+        classCodeTextView.text = getString(R.string.class_code, student.classCode)
+        createdAtTextView.text = getString(R.string.created_at, student.formattedCreatedAt())
+
     }
 
     private fun setClickListeners() = with(binding){

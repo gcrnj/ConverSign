@@ -36,6 +36,6 @@ object FireStoreUtils {
         const val LAST_NAME = "lastName"
         const val EMAIL = "email"
         const val PHONE = "phone"
-        const val CREATED_AT = "phone"
+        const val CREATED_AT = "created_at"
     }
 }
