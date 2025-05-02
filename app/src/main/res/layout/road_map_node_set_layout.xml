@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".student.fragments.RoadMapFragment">
+
+    <ImageView
+        android:id="@+id/roadNormalImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:adjustViewBounds="true"
+        android:importantForAccessibility="no"
+        android:src="@drawable/road_normal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/roadInvertedImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="-50dp"
+        android:adjustViewBounds="true"
+        android:importantForAccessibility="no"
+        android:src="@drawable/road_inverted"
+        app:layout_constraintTop_toBottomOf="@id/roadNormalImageView" />
+
+    <include
+        android:id="@+id/node1"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/node2"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintBottom_toTopOf="@id/node3"
+        app:layout_constraintTop_toBottomOf="@id/node1" />
+
+    <include
+        android:id="@+id/node3"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintBottom_toTopOf="@id/node4"
+        app:layout_constraintTop_toBottomOf="@id/node2" />
+
+    <include
+        android:id="@+id/node4"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/roadNormalImageView"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/node5"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/node6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintTop_toBottomOf="@id/node4"
+        />
+    <include
+        android:id="@+id/node6"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/node7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@id/node5"
+        />
+    <include
+        android:id="@+id/node7"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintBottom_toTopOf="@id/node8"
+        app:layout_constraintTop_toBottomOf="@id/node6"
+        />
+    <include
+        android:id="@+id/node8"
+        layout="@layout/road_map_node_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/roadInvertedImageView"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

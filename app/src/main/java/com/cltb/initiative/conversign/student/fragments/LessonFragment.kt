@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.databinding.FragmentLessonBinding
+import com.cltb.initiative.conversign.student.StudentsActivity
 
 
 class LessonFragment : Fragment() {
@@ -38,8 +39,20 @@ class LessonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setClickListeners()
         updateUI()
+    }
+
+    private fun setClickListeners() = with(binding){
+        roadmapButton.setOnClickListener {
+            // Navigate to roadmap fragment
+            (requireActivity() as StudentsActivity).changeFragment(
+                RoadMapFragment::class.java,
+                Bundle().apply {
+                    putParcelable(RoadMapFragment.LEVEL, level)
+                }
+            )
+        }
     }
 
     private fun updateUI() = with(binding) {
