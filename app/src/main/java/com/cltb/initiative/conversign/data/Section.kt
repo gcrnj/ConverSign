@@ -1,7 +1,7 @@
 package com.cltb.initiative.conversign.data
 
 import android.os.Parcelable
-import com.cltb.initiative.conversign.levels.Rookie
+import com.cltb.initiative.conversign.game_data.sections.Rookie
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

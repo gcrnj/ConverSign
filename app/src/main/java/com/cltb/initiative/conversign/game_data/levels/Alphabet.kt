@@ -1,4 +1,4 @@
-package com.cltb.initiative.conversign.levels
+package com.cltb.initiative.conversign.game_data.levels
 
 import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Lesson
