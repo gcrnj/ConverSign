@@ -69,6 +69,15 @@ class LevelSelectionFragment : Fragment() {
                     fragmentClass = LessonFragment::class.java,
                     args = Bundle().apply {
                         putParcelable(LessonFragment.LEVEL, level)
+                        val isCurrentSection = progress.currentSection == section?.sectionNumber
+                        val isCurrentLevel = progress.currentLevel == level.levelNumber
+                        val isInLatestSelection = isCurrentLevel && isCurrentSection
+                        val currentMilestone = if (isInLatestSelection) {
+                            level.milestones.find { it.number == progress.currentMilestone }
+                        } else {
+                            level.milestones.first()
+                        }
+                        putParcelable(LessonFragment.MILESTONE, currentMilestone)
                     }
                 )
             }

@@ -1,188 +1,330 @@
 package com.cltb.initiative.conversign.game_data.levels
 
 import com.cltb.initiative.conversign.R
+import com.cltb.initiative.conversign.data.Challenge
+import com.cltb.initiative.conversign.data.ChallengeMilestone
 import com.cltb.initiative.conversign.data.Lesson
-import com.cltb.initiative.conversign.data.LessonChallenge
+import com.cltb.initiative.conversign.data.LessonMilestone
 import com.cltb.initiative.conversign.data.Level
 
 object Alphabet : Level(
     name = "Level 1: Alphabets",
     levelNumber = 1,
     icon = R.drawable.letter_a,
-    lessons = listOf(
-        Lesson(
-            name = "Lesson 1: Letters A-D",
-            description = "Letters A-D",
-            lessonNumber = 1,
-            lessonChallenges = listOf(
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "A",
-                    "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+    milestones = listOf(
+        LessonMilestone(
+            number = 1,
+            roadMapTitle = "Lesson A-D",
+            pageHeader = "Lesson 1",
+            pageSubHeader = "Letters A-D",
+            lessons = listOf(
+                Lesson(
+                    signName = "A",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/a.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "B",
-                    "Open your hand with fingers extended straight up, keeping your thumb across the palm to hold the fingers in place. Your palm faces outward.",
+                Lesson(
+                    signName = "B",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/b.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "C",
-                    "Curl your hand into a \"C\" shape, with your fingers forming a curved shape and your thumb resting on the outside.",
+                Lesson(
+                    signName = "C",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/c.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "D",
-                    "Hold up your right hand with the index finger pointing straight up, and the other fingers curled into the palm. Your thumb is placed across the palm.",
-                ),
+                Lesson(
+                    signName = "D",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/d.png"
+                )
             )
         ),
-        Lesson(
-            name = "Lesson 2: Letters E-H",
-            description = "Letters E-H",
-            lessonNumber = 2,
-            lessonChallenges = listOf(
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "E",
-                    "Curl your fingers into your palm, making a fist, but leave a small space between your thumb and your fingers, so the tips of your fingers touch your palm.",
+        ChallengeMilestone(
+            number = 2,
+            roadMapTitle = "Challenge 1",
+            pageHeader = "Challenge",
+            challenges = listOf(
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "A"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "F",
-                    "Bring the tips of your thumb and index finger together to form a small \"O\" shape, while keeping your other three fingers extended upward.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "B"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "G",
-                    "Extend your thumb and index finger straight out, keeping them close together, while the other fingers are curled into the palm.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "C"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "H",
-                    "Hold your hand up with the index and middle fingers extended straight, while the other fingers are curled into the palm, and your thumb is resting against the side of your hand.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "D"
+                )
+            )
+        ),
+        LessonMilestone(
+            number = 3,
+            roadMapTitle = "Lesson E-H",
+            pageHeader = "Lesson 2",
+            pageSubHeader = "Letters E-H",
+            lessons = listOf(
+                Lesson(
+                    signName = "E",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/e.png"
+                ),
+                Lesson(
+                    signName = "F",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/f.png"
+                ),
+                Lesson(
+                    signName = "G",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/g.png"
+                ),
+                Lesson(
+                    signName = "H",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/h.png"
+                )
+            )
+        ),
+        ChallengeMilestone(
+            number = 4,
+            roadMapTitle = "Challenge 2",
+            pageHeader = "Challenge",
+            challenges = listOf(
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "E"
+                ),
+
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "F"
+                ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "G"
+                ),
+
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "H"
+                )
+            )
+        ),
+        LessonMilestone(
+            number = 5,
+            roadMapTitle = "Lesson I-L",
+            pageHeader = "Lesson 3",
+            pageSubHeader = "Letters I-L",
+            lessons = listOf(
+
+                Lesson(
+                    signName = "I",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/i.png"
+                ),
+                Lesson(
+                    signName = "J",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/j.png"
+                ),
+                Lesson(
+                    signName = "K",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/k.png"
+                ),
+                Lesson(
+                    signName = "L",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/l.png"
                 )
             ),
         ),
-        Lesson(
-            name = "Lesson 3: Letters I-L",
-            description = "Letters I-L",
-            lessonNumber = 3,
-            lessonChallenges = listOf(
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "I",
-                    "Extend your pinky finger straight up, and curl the other fingers into a fist. Your thumb rests on the side of your hand.",
+        ChallengeMilestone(
+            number = 6,
+            roadMapTitle = "Challenge 3",
+            pageHeader = "Challenge",
+            challenges = listOf(
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "I"
                 ),
-
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "J",
-                    "Extend your pinky finger and trace the letter \"J\" in the air with it, while the other fingers are curled into a fist.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "J"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "K",
-                    "Hold up your hand with your index and middle fingers extended straight, forming a \"V\" shape, and your thumb pointing upward, resting between the index and middle fingers.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "K"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "L",
-                    "Hold your hand with the thumb extended out and your index finger extended straight up, forming an \"L\" shape.",
-                ),
-            ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "L"
+                )
+            )
         ),
-        Lesson(
-            name = "Lesson 4: Letters M-P",
-            description = "Letters M-P",
-            lessonNumber = 4,
-            lessonChallenges = listOf(
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "M",
-                    "Curl your thumb over the tips of your three middle fingers (index, middle, and ring), leaving your pinky extended.",
+        LessonMilestone(
+            number = 7,
+            roadMapTitle = "Lesson M-P",
+            pageHeader = "Lesson 4",
+            pageSubHeader = "Letters M-P",
+            lessons = listOf(
+                Lesson(
+                    signName = "M",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/m.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "N",
-                    "Similar to \"M,\" but place your thumb over your index and middle fingers, leaving the ring and pinky fingers extended.",
+                Lesson(
+                    signName = "N",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/n.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "O",
-                    "Form an \"O\" shape by bringing your thumb and fingers together, with your hand forming a small circle.",
+                Lesson(
+                    signName = "O",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/o.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "P",
-                    "Extend your index and middle fingers straight, and curl the other fingers into the palm. Point your thumb downward.",
-                ),
-            ),
+                Lesson(
+                    signName = "P",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/p.png"
+                )
+            )
         ),
-        Lesson(
-            name = "Lesson 5: Letters Q-U",
-            description = "Letters Q-U",
-            lessonNumber = 5,
-            lessonChallenges = listOf(
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "Q",
-                    "Similar to \"G,\" but point your thumb and index finger downward, keeping them close together.",
+        ChallengeMilestone(
+            number = 8,
+            roadMapTitle = "Challenge 4",
+            pageHeader = "Challenge",
+            challenges = listOf(
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "M"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "R",
-                    "Cross your index and middle fingers, keeping the other fingers curled into the palm, and your thumb resting against your palm.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "N"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "S",
-                    "Make a fist, but keep your thumb resting over the top of your fingers, closing them tightly.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "O"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "T",
-                    "Make a fist with your thumb tucked between your index and middle fingers.",
-                ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "U",
-                    "Extend your index and middle fingers straight up, while keeping the other fingers curled into the palm, and your thumb resting on the side of your hand.",
-                ),
-            ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "P"
+                )
+            )
         ),
-        Lesson(
-            name = "Lesson 6: Letters V-Z",
-            description = "Letters V-Z",
-            lessonNumber = 6,
-            lessonChallenges = listOf(
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "V",
-                    "Extend your index and middle fingers straight, forming a \"V\" shape, while keeping the other fingers curled into the palm.",
+        LessonMilestone(
+            number = 9,
+            roadMapTitle = "Lesson Q-U",
+            pageHeader = "Lesson 5",
+            pageSubHeader = "Letters Q-U",
+            lessons = listOf(
+                Lesson(
+                    signName = "Q",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/q.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "W",
-                    " Extend your index, middle, and ring fingers straight, forming a \"W\" shape, while keeping the other fingers curled into the palm.",
+                Lesson(
+                    signName = "R",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/r.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "X",
-                    "Curl your index finger slightly, making a shape similar to a \"hook,\" while keeping the other fingers curled into a fist.",
+                Lesson(
+                    signName = "S",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/s.png"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "Y",
-                    "Extend your pinky and thumb out, while keeping the other fingers curled into the palm, forming a \"Y\" shape.",
+                Lesson(
+                    signName = "T",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/t.png"
+                )
+            )
+        ),
+        ChallengeMilestone(
+            number = 10,
+            roadMapTitle = "Challenge 5",
+            pageHeader = "Challenge",
+            challenges = listOf(
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "Q"
                 ),
-                LessonChallenge(
-                    R.drawable.email_icon,
-                    "Z",
-                    "Extend your index finger and draw the letter \"Z\" in the air.",
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "R"
                 ),
-            ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "S"
+                ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "T"
+                )
+            )
+        ),
+        LessonMilestone(
+            number = 11,
+            roadMapTitle = "Lesson V-Z",
+            pageHeader = "Lesson 6",
+            pageSubHeader = "Letters V-Z",
+            lessons = listOf(
+                Lesson(
+                    signName = "V",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/v.png"
+                ),
+                Lesson(
+                    signName = "W",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/w.png"
+                ),
+                Lesson(
+                    signName = "X",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/x.png"
+                ),
+                Lesson(
+                    signName = "Y",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/y.png"
+                ),
+                Lesson(
+                    signName = "Z",
+                    signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    signFirebaseImage = "signs/alphabet/z.png"
+                )
+            )
+        ),
+        ChallengeMilestone(
+            number = 12,
+            roadMapTitle = "Challenge 6",
+            pageHeader = "Challenge",
+            challenges = listOf(
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "V"
+                ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "W"
+                ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "X"
+                ),
+                Challenge(
+                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+                    answer = "Z"
+                ),
+            )
         )
-
     )
 )

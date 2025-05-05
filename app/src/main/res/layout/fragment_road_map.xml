@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/app_padding"
     tools:context=".student.fragments.RoadMapFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/roadmapRecyclerView"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:itemCount="2"
-        tools:listitem="@layout/road_map_node_set_layout"
-        android:layout_height="match_parent" />
+        tools:listitem="@layout/road_map_node_set_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

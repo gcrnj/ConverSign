@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.data.Progress
@@ -54,7 +53,7 @@ class RoadMapFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.progress.observe(viewLifecycleOwner) { progress ->
             progress ?: return@observe
-            selectedLesson = progress.currentLesson
+            selectedLesson = progress.currentMilestone
             populateRoadMap(progress)
         }
     }

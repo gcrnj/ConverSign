@@ -74,6 +74,10 @@ class StudentsActivity : AppCompatActivity() {
                 showBackButton = false
             )
         }
+        viewModel.progress.observe(this) { progress ->
+            progress ?: return@observe
+            setHealth(progress.health)
+        }
     }
 
     private fun handleCLickListeners() {
@@ -121,6 +125,10 @@ class StudentsActivity : AppCompatActivity() {
         } else {
             View.GONE
         }
+    }
+
+    private fun setHealth(health: Int) {
+        binding.healthTextView.text = String.format(health.toString())
     }
 
 }

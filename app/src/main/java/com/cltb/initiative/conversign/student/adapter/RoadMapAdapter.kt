@@ -3,15 +3,12 @@ package com.cltb.initiative.conversign.student.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cltb.initiative.conversign.R
-import com.cltb.initiative.conversign.data.Lesson
 import com.cltb.initiative.conversign.data.Level
+import com.cltb.initiative.conversign.data.Milestone
 import com.cltb.initiative.conversign.data.Progress
-import com.cltb.initiative.conversign.databinding.RoadMapNodeLayoutBinding
 import com.cltb.initiative.conversign.databinding.RoadMapNodeSetLayoutBinding
 
 class RoadMapAdapter(
@@ -24,7 +21,7 @@ class RoadMapAdapter(
     // lessons is now a 3d list
     // List<List<Lesson>>
     // It is a list of 10 lists max each
-    private val lessons = level.lessons.chunked(10)
+    private val lessons = level.milestones.chunked(10)
 
     inner class RoadMapViewHolder(private val viewBinding: RoadMapNodeSetLayoutBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
@@ -39,23 +36,24 @@ class RoadMapAdapter(
             viewBinding.node8
         )
 
-        fun bind(lessons: List<Lesson>) {
+        fun bind(lessons: List<Milestone>, position: Int) {
             nodeBindings.forEachIndexed { index, binding ->
+                val originalIndex = position * 10 + index + 1
                 val lesson = lessons.getOrNull(index)
 
                 // Enable only if:
                 // progress level == current level && progress lesson >= lesson number
                 // else - progress level should be greater than current level
                 val isProgressDone = if (progress.currentLevel == level.levelNumber) {
-                    progress.currentLesson >= (lesson?.lessonNumber ?: 0)
+                    progress.currentMilestone >= originalIndex
                 } else {
                     progress.currentLevel > level.levelNumber
                 }
 
-                val isSelected = lesson?.lessonNumber == selectedLesson
+                val isSelected = originalIndex == selectedLesson
                 lesson?.let {
                     // Enable or disable
-                    binding.root.text = lesson.description
+                    binding.root.text = lesson.pageHeader
                     binding.root.setOnClickListener {
                         // Navigate to lesson
                     }
@@ -90,6 +88,6 @@ class RoadMapAdapter(
 
 
     override fun onBindViewHolder(holder: RoadMapViewHolder, position: Int) {
-        holder.bind(lessons[position])
+        holder.bind(lessons[position], position)
     }
 }

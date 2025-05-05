@@ -11,25 +11,45 @@ open class Level(
     val name: String,
     val levelNumber: Int,
     @DrawableRes val icon: Int,
-    val lessons: List<Lesson>,
+    val milestones: List<Milestone>,
 ) : Parcelable
 
-/** @param lessonChallenges is also the lesson */
+abstract class Milestone: Parcelable{
+    abstract val number: Int
+    abstract val roadMapTitle: String
+    abstract val pageHeader: String
+}
+
+@Parcelize
+data class LessonMilestone(
+    override val number: Int,
+    override val roadMapTitle: String,
+    override val pageHeader: String,
+    val pageSubHeader: String, // e.g. "Lesson 1: Letters A-D"
+    val lessons: List<Lesson>,
+): Milestone()
+
 @Parcelize
 data class Lesson(
-    val name: String,
-    val description: String,
-    val lessonNumber: Int,
-    val lessonChallenges: List<LessonChallenge>,
+    val signName: String,
+    val signHint: String,
+    val signFirebaseImage: String,
 ) : Parcelable
 
 @Parcelize
-data class LessonChallenge(
-    val image: Int,
-    val answer: String,
-    val lessonHint: String = "",
-    val challengeHint: String = "",
-) : Parcelable
+data class ChallengeMilestone(
+    override val number: Int,
+    override val roadMapTitle: String,
+    override val pageHeader: String,
+    val challenges: List<Challenge>,
+): Milestone()
+
+@Parcelize
+data class Challenge(
+    val hint: String = "",
+    val answer: String = "", // e.g. Sign "B"
+): Parcelable
+
 
 val rookieLevels: List<Level> = listOf(
     Alphabet,

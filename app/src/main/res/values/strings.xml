@@ -45,4 +45,6 @@
     <string name="class_code">Class Code</string>
     <string name="class_code_cannot_be_empty">Ask your supervisor for you class code.</string>
     <string name="cannot_find_class_code">Cannot find the class code.</string>
+    <string name="sign_value">Sign \"%1$s\"</string>
+    <string name="next">Next</string>
 </resources>

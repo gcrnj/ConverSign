@@ -6,12 +6,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Progress(
-    val currentLesson: Int,
-    val currentChallenge: Int = 0,
+    val currentMilestone: Int,
     val currentLevel: Int,
     val currentSection: Int,
     val lastAttempt: Timestamp? = null,
     val health: Int,
-) : Parcelable {
-
-}
+) : Parcelable
