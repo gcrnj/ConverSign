@@ -67,15 +67,12 @@ class StudentsActivity : AppCompatActivity() {
         viewModel.loadProgressFromFireStore(FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
         viewModel.progress.observeOnce(this) { progress ->
-            progress?.let {
-                // First Load
-                changeFragment(
-                    fragmentClass = SectionFragment::class.java,
-                    showBackButton = false
-                )
-            } ?: run {
+            progress ?: viewModel.setNewProgress(FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
-            }
+            changeFragment(
+                fragmentClass = SectionFragment::class.java,
+                showBackButton = false
+            )
         }
     }
 

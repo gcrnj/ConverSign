@@ -8,25 +8,37 @@ object FireStoreUtils {
     // Student
     val allStudentsCollectionRef = FirebaseFirestore.getInstance().collection(Roles.Student.name)
     fun studentCollectionRef(userId: String) = allStudentsCollectionRef.document(userId)
-    fun currentStudentCollectionRef() = studentCollectionRef(FirebaseAuth.getInstance().currentUser?.uid ?: "")
+    fun currentStudentCollectionRef() =
+        studentCollectionRef(FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
     // Educator
     val allEducatorsCollectionRef = FirebaseFirestore.getInstance().collection(Roles.Educator.name)
     fun educatorCollectionRef(userId: String) = allEducatorsCollectionRef.document(userId)
-    fun currentEducatorCollectionRef() = educatorCollectionRef(FirebaseAuth.getInstance().currentUser?.uid ?: "")
+    fun currentEducatorCollectionRef() =
+        educatorCollectionRef(FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
     // Individual
-    val allIndividualsCollectionRef = FirebaseFirestore.getInstance().collection(Roles.Individual.name)
+    val allIndividualsCollectionRef =
+        FirebaseFirestore.getInstance().collection(Roles.Individual.name)
+
     fun individualCollectionRef(userId: String) = allIndividualsCollectionRef.document(userId)
-    fun currentIndividualCollectionRef() = individualCollectionRef(FirebaseAuth.getInstance().currentUser?.uid ?: "")
+    fun currentIndividualCollectionRef() =
+        individualCollectionRef(FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
     // General user by role
     fun allUsersCollectionRef(role: String) = FirebaseFirestore.getInstance().collection(role)
-    fun userCollectionRef(role:String, userId: String) = allUsersCollectionRef(role).document(userId)
-    fun currentUserCollectionRef(role: String) = userCollectionRef(role, FirebaseAuth.getInstance().currentUser?.uid ?: "")
+    fun userCollectionRef(role: String, userId: String) =
+        allUsersCollectionRef(role).document(userId)
+
+    fun currentUserCollectionRef(role: String) =
+        userCollectionRef(role, FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
     // Levels
-    fun progressCollectionRef(userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "") = studentCollectionRef(userId).collection("progress")
+    fun progressDoc(userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "") =
+        studentCollectionRef(userId)
+            .collection("progress")
+            .document(StudentKeys.PROGRESS)
+
     fun logout() {
         FirebaseAuth.getInstance().signOut()
     }
@@ -38,5 +50,8 @@ object FireStoreUtils {
         const val PHONE = "phone"
         const val CLASS_CODE = "classCode"
         const val CREATED_AT = "created_at"
+        const val PROGRESS = "progress"
+
     }
+
 }
