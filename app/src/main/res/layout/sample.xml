@@ -2,13 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_bg"
     android:orientation="vertical"
-    android:padding="@dimen/app_padding"
-    tools:context=".student.StudentProfileActivity">
+    android:padding="16dp">
 
     <!-- Top Section with Profile Picture and Level Badge -->
     <RelativeLayout
@@ -31,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:background="@color/deep_green"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/deep_green"
             android:padding="8dp">
 
             <LinearLayout
@@ -196,29 +194,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="sebz@gmail.com"
-                android:textColor="#333333"
-                android:textSize="16sp" />
-        </LinearLayout>
-        <!-- Class Code -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Class Code"
-                android:textColor="#555555"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/classCodeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1234567"
                 android:textColor="#333333"
                 android:textSize="16sp" />
         </LinearLayout>

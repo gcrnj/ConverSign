@@ -57,11 +57,13 @@ class StudentProfileActivity : AppCompatActivity() {
         logoutButton.visibility = buttonsVisible
 
         student ?: return
-        fullNameTextView.text = student.fullName()
+        firstNameTextView.text = student.firstName
+        lastNameTextView.text = student.lastName
+        roleTextView.text = student.role()
         emailTextView.text = student.email
-        phoneTextView.text = student.phone
-        classCodeTextView.text = getString(R.string.class_code_with_value, student.classCode)
-        createdAtTextView.text = getString(R.string.created_at, student.formattedCreatedAt())
+        phoneNumberTextView.text = student.phone
+        classCodeTextView.text = student.classCode
+        // createdAtTextView.text = getString(R.string.created_at, student.formattedCreatedAt())
 
     }
 
