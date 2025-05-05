@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "651397781534",
+    "project_id": "conversign-72b1d",
+    "storage_bucket": "conversign-72b1d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651397781534:android:93b687d63ef51e6de7360f",
+        "android_client_info": {
+          "package_name": "com.cltb.initiative.conversign"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT6YhVm5eiwOD-yYwXDxRJ7C8JFRY9JmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
