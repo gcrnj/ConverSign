@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.cltb.initiative.conversign.data.Roles
 import com.cltb.initiative.conversign.databinding.ActivitySignUpBinding
 import com.cltb.initiative.conversign.student.StudentsActivity
@@ -18,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FieldValue
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class SignUpActivity : AppCompatActivity() {
     private val binding: ActivitySignUpBinding by lazy {
@@ -60,6 +63,14 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun handleClickListeners() {
         with(binding) {
+            roleLayout.roleRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+                studentClassCodeEditText.visibility =
+                    if (checkedId == roleLayout.studentRadioButton.id) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
+            }
             tncTextView.setOnClickListener {
                 // Todo - Launch tnc page
             }
@@ -73,22 +84,51 @@ class SignUpActivity : AppCompatActivity() {
                 val password = passwordEditText.text.toString()
                 val confirmPassword = confirmPasswordEditText.text.toString()
                 val role = getSelectedRole()
-
                 val isUserAuthenticated = emailFromIntent.isNotBlank()
+                val classCode =
+                    if (role == Roles.Student.name) studentClassCodeEditText.text.toString() else generateNewClassCode()
 
-                // Validate
-                val isSignUpValid = validateRegister(
-                    firstName,
-                    lastName,
-                    // username,
-                    email,
-                    phone,
-                    password,
-                    confirmPassword,
-                    role
-                )
 
-                if (isSignUpValid) {
+                lifecycleScope.launch {
+
+                    // Validate
+                    val isSignUpValid = validateRegister(
+                        firstName,
+                        lastName,
+                        // username,
+                        email,
+                        phone,
+                        password,
+                        confirmPassword,
+                        classCode,
+                        role
+                    )
+
+                    if (!isSignUpValid) {
+                        it.isEnabled = true
+                        return@launch
+                    }
+
+                    var newClassCode = classCode
+                    if (getSelectedRole() == Roles.Student.name) {
+                        // Check class code first in firestore
+                        if (!classCodeExists(newClassCode)) {
+                            // Invalid class code
+                            showError(getString(R.string.cannot_find_class_code))
+                            it.isEnabled = true
+                            return@launch
+                        }
+                    } else if (getSelectedRole() == Roles.Educator.name) {
+                        // Generate a new classCode while the classCode exists
+                        newClassCode = generateNewClassCode()
+                        while (classCodeExists(newClassCode)) {
+                            newClassCode = generateNewClassCode()
+                        }
+                    } else {
+                        it.isEnabled = true
+                        return@launch
+                    }
+
                     // Signup
                     registerAccount(
                         firstName,
@@ -98,13 +138,23 @@ class SignUpActivity : AppCompatActivity() {
                         phone,
                         role,
                         password,
+                        newClassCode,
                         isUserAuthenticated
                     )
-                } else {
-                    it.isEnabled = true
                 }
+
             }
         }
+    }
+
+    private fun generateNewClassCode(): String {
+        // Pattern: {2 numbers}-{5 alphabets}
+        // Random characters
+        val alphabets = ('a'..'z') + ('A'..'Z')
+        val randomAlphabets = (1..5).map { alphabets.random() }.joinToString("")
+        // Random numbers
+        val randomNumbers = (1..2).map { (0..9).random() }.joinToString("")
+        return "$randomNumbers-$randomAlphabets"
     }
 
     private fun registerAccount(
@@ -114,6 +164,7 @@ class SignUpActivity : AppCompatActivity() {
         phone: String,
         role: String,
         password: String,
+        classCode: String,
         userAuthenticated: Boolean,
     ) {
         if (!userAuthenticated) {
@@ -127,6 +178,7 @@ class SignUpActivity : AppCompatActivity() {
                         lastName,
                         email,
                         phone,
+                        classCode,
                         role,
                     )
                 }
@@ -150,6 +202,7 @@ class SignUpActivity : AppCompatActivity() {
                 lastName,
                 email,
                 phone,
+                classCode,
                 role,
             )
         }
@@ -161,6 +214,7 @@ class SignUpActivity : AppCompatActivity() {
         lastName: String,
         email: String,
         phone: String,
+        classCode: String,
         role: String,
     ) {
 
@@ -170,6 +224,7 @@ class SignUpActivity : AppCompatActivity() {
                 LAST_NAME to lastName,
                 EMAIL to email,
                 PHONE to phone,
+                CLASS_CODE to classCode,
                 CREATED_AT to FieldValue.serverTimestamp() // Using Firestore's server timestamp
             )
         }
@@ -182,7 +237,7 @@ class SignUpActivity : AppCompatActivity() {
                     SharedPrefUtils.Keys.Role,
                     role
                 )
-                when(role) {
+                when (role) {
                     Roles.Student.name -> StudentsActivity::class.java
                     Roles.Educator.name -> TeachersActivity::class.java
                     Roles.Individual.name -> null // Todo - add the educator's activity
@@ -208,6 +263,18 @@ class SignUpActivity : AppCompatActivity() {
             }
     }
 
+    private suspend fun classCodeExists(classCode: String): Boolean {
+        return try {
+            val snapshot = FireStoreUtils.allEducatorsCollectionRef
+                .whereEqualTo("classCode", classCode)
+                .get()
+                .await()
+            !snapshot.isEmpty
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     private fun validateRegister(
         firstName: String,
         lastName: String,
@@ -216,6 +283,7 @@ class SignUpActivity : AppCompatActivity() {
         phone: String,
         password: String,
         confirmPassword: String,
+        classCode: String,
         role: String
     ): Boolean {
         var isValidated = true
@@ -288,9 +356,12 @@ class SignUpActivity : AppCompatActivity() {
             isValidated = false
         }
 
-        // Role
+        // Role (and `classCode`)
         if (role.isBlank()) {
             showError(getString(R.string.role_cannot_be_empty))
+            isValidated = false
+        } else if (role == Roles.Student.name && classCode.isBlank()) {
+            showError(getString(R.string.class_code_cannot_be_empty))
             isValidated = false
         }
 

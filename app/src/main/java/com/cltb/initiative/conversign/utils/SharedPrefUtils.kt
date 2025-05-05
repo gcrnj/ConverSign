@@ -31,5 +31,6 @@ class SharedPrefUtils(private val context: Context) {
 
     enum class Keys {
         Role,
+        ClassCode,
     }
 }

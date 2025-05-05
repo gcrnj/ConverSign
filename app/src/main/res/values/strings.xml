@@ -40,6 +40,9 @@
     <string name="back">Back</string>
     <string name="logout">Logout</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="class_code">Class Code: %1$s</string>
+    <string name="class_code_with_value">Class Code: %1$s</string>
     <string name="created_at">Created at %1$s</string>
+    <string name="class_code">Class Code</string>
+    <string name="class_code_cannot_be_empty">Ask your supervisor for you class code.</string>
+    <string name="cannot_find_class_code">Cannot find the class code.</string>
 </resources>

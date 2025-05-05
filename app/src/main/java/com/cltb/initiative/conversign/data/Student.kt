@@ -14,6 +14,7 @@ data class Student(
     val createdAt: Timestamp? = null,
     val phone: String = "",
     val classCode: String = "",
+    var progress: Progress? = null,
 ) : Parcelable {
     fun role() = Roles.Student.name
 

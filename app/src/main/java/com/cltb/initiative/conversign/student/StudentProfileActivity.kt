@@ -47,8 +47,8 @@ class StudentProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUI(student: Student?) = with(binding){
-        val  buttonsVisible = if (student != null) {
+    private fun updateUI(student: Student?) = with(binding) {
+        val buttonsVisible = if (student != null) {
             View.VISIBLE
         } else {
             View.GONE
@@ -60,12 +60,12 @@ class StudentProfileActivity : AppCompatActivity() {
         fullNameTextView.text = student.fullName()
         emailTextView.text = student.email
         phoneTextView.text = student.phone
-        classCodeTextView.text = getString(R.string.class_code, student.classCode)
+        classCodeTextView.text = getString(R.string.class_code_with_value, student.classCode)
         createdAtTextView.text = getString(R.string.created_at, student.formattedCreatedAt())
 
     }
 
-    private fun setClickListeners() = with(binding){
+    private fun setClickListeners() = with(binding) {
         logoutButton.setOnClickListener {
             SharedPrefUtils(this@StudentProfileActivity).logout()
             startActivity(
