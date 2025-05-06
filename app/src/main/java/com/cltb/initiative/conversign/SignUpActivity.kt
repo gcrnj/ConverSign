@@ -46,12 +46,12 @@ class SignUpActivity : AppCompatActivity() {
             insets
         }
         binding.apply {
-            firstNameEditText.setText("Jay")
-            lastNameEditText.setText("Jay")
-            phoneEditText.setText("09123456789")
-            emailEditText.setText("gio.cornejo@my.jru.edu")
-            passwordEditText.setText("123456789")
-            confirmPasswordEditText.setText("123456789")
+//            firstNameEditText.setText("Jay")
+//            lastNameEditText.setText("Jay")
+//            phoneEditText.setText("09123456789")
+//            emailEditText.setText("gio.cornejo@my.jru.edu")
+//            passwordEditText.setText("123456789")
+//            confirmPasswordEditText.setText("123456789")
         }
         if (emailFromIntent.isNotBlank()) {
             binding.emailLayout.isEnabled = false

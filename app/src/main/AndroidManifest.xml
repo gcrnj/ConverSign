@@ -29,6 +29,7 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="true"
+            android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTop" />
         <activity
             android:name=".LoginActivity"
