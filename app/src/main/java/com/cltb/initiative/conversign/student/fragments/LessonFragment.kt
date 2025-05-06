@@ -104,7 +104,9 @@ class LessonFragment : Fragment() {
             )
         }
 
-        lessonNextButton.setOnClickListener {
+        lessonNextButton.setOnClickListener { button ->
+            button.isEnabled = false
+
             // Add 1 to current milestone
             progressViewModel.nextMilestoneLevel(FirebaseAuth.getInstance().currentUser?.uid ?: "") { newProgress ->
                 val newMilestone = with(newProgress) {
@@ -124,10 +126,11 @@ class LessonFragment : Fragment() {
             }
         }
 
-        challengePreviousClickListener.setOnClickListener {
+        challengePreviousClickListener.setOnClickListener { button ->
+            button.isEnabled = false
             // Add 1 to current challenge
             progressViewModel.nextMilestoneLevel(FirebaseAuth.getInstance().currentUser?.uid ?: "") {
-
+                button.isEnabled = true
             }
         }
 

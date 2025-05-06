@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cltb.initiative.conversign.MainActivity
 import com.cltb.initiative.conversign.databinding.ActivityTeachersBinding
-import com.cltb.initiative.conversign.student.viewmodels.StudentProfileViewModel
 import com.cltb.initiative.conversign.teacher.viewmodels.TeachersViewModel
 import com.cltb.initiative.conversign.utils.SharedPrefUtils
 
@@ -20,7 +19,7 @@ class TeachersActivity : AppCompatActivity() {
         ActivityTeachersBinding.inflate(layoutInflater)
     }
 
-    val teachersViewModel: TeachersViewModel by viewModels()
+    private val teachersViewModel: TeachersViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +59,7 @@ class TeachersActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         // teachersViewModel.fetchStudents("qweASSD")
+        teachersViewModel.fetchTeacherData()
         teachersViewModel.students.observe(this) { students ->
             Toast.makeText(this, students.size.toString(), Toast.LENGTH_SHORT).show()
             students?.let {
@@ -67,6 +67,9 @@ class TeachersActivity : AppCompatActivity() {
 
                 }
             }
+        }
+        teachersViewModel.educator.observe(this) {
+            binding.classCodeTextView.text = it.classCode
         }
     }
 }

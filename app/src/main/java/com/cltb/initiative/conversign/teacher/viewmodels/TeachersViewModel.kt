@@ -4,20 +4,36 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cltb.initiative.conversign.data.Educator
 import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.utils.FireStoreUtils
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withContext
 
 class TeachersViewModel : ViewModel() {
 
     private val _students = MutableLiveData<List<Student>>()
     val students: LiveData<List<Student>> = _students
+
+    private val _educator = MutableLiveData<Educator>()
+    val educator: LiveData<Educator> = _educator
+
+    fun fetchTeacherData(userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "") {
+        FireStoreUtils.educatorCollectionRef(userId)
+            .get()
+            .addOnSuccessListener {
+                if (it.exists()) {
+                    val json = Gson().toJson(it.data)
+                    val educator = Gson().fromJson(json, Educator::class.java)
+                    _educator.value = educator
+                }
+            }
+    }
 
     // Fetch students and their progress asynchronously
     fun fetchStudents(classCode: String) {

@@ -142,6 +142,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@id/cameraView" />
 
 
@@ -182,21 +183,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/k2d_semibold"
-            android:text="Nice Job!"
+            android:text="@string/nice_job"
             android:textColor="@color/nice_job_text_color"
             android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You got that correctly"
+            android:text="@string/you_got_that_correctly"
             android:textColor="@color/nice_job_text_color" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/nextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next"
+            android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="@color/screen_bg"
             app:backgroundTint="@color/nice_job_button_bg_color"

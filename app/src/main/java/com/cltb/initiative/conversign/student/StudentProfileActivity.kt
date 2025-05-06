@@ -2,14 +2,12 @@ package com.cltb.initiative.conversign.student
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cltb.initiative.conversign.MainActivity
-import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.databinding.ActivityStudentProfileBinding
 import com.cltb.initiative.conversign.student.viewmodels.StudentProfileViewModel
@@ -48,13 +46,13 @@ class StudentProfileActivity : AppCompatActivity() {
     }
 
     private fun updateUI(student: Student?) = with(binding) {
-        val buttonsVisible = if (student != null) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
-        editProfileButton.visibility = buttonsVisible
-        logoutButton.visibility = buttonsVisible
+//        val buttonsVisible = if (student != null) {
+//            View.VISIBLE
+//        } else {
+//            View.GONE
+//        }
+//        editProfileButton.visibility = buttonsVisible
+//        logoutButton.visibility = buttonsVisible
 
         student ?: return
         firstNameTextView.text = student.firstName

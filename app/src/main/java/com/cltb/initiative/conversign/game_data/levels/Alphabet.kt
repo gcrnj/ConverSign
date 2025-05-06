@@ -21,22 +21,22 @@ object Alphabet : Level(
                 Lesson(
                     signName = "A",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/a.png"
+                    signFirebaseImage = "signs/alphabet/a.jpeg"
                 ),
                 Lesson(
                     signName = "B",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/b.png"
+                    signFirebaseImage = "signs/alphabet/b.jpeg"
                 ),
                 Lesson(
                     signName = "C",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/c.png"
+                    signFirebaseImage = "signs/alphabet/c.jpeg"
                 ),
                 Lesson(
                     signName = "D",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/d.png"
+                    signFirebaseImage = "signs/alphabet/d.jpeg"
                 )
             )
         ),

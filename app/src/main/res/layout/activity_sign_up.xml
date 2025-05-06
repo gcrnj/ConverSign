@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
                 android:hint="@string/first_name"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
                 android:hint="@string/last_name"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
