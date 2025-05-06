@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.data.Section
@@ -56,6 +57,16 @@ class RoadMapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
+        setupTexts()
+    }
+
+    private fun setupTexts() = with(binding) {
+        roadmapSectionLevelTextView.text =
+            getString(
+                R.string.section_dash_level,
+                selectedSection?.name ?: "",
+                selectedLevel?.name ?: ""
+            )
     }
 
     private fun observeViewModel() {

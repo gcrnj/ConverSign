@@ -49,4 +49,6 @@
     <string name="next">Next</string>
     <string name="you_got_that_correctly">You got that correctly</string>
     <string name="nice_job">Nice Job!</string>
+    <string name="roadmap">Roadmap</string>
+    <string name="section_dash_level">%1$s - %2$s</string>
 </resources>

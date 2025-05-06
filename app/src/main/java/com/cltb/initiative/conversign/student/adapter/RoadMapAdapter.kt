@@ -1,99 +1,148 @@
 package com.cltb.initiative.conversign.student.adapter
 
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.data.Milestone
 import com.cltb.initiative.conversign.data.Progress
-import com.cltb.initiative.conversign.databinding.RoadMapNodeSetLayoutBinding
+import com.cltb.initiative.conversign.databinding.RoadMapNodeLayoutBinding
 
 class RoadMapAdapter(
     private val level: Level,
     private val progress: Progress,
-    private val selectedLesson: Int,
+    private val selectedMilestoneNumber: Int,
     private val onMilestoneSelected: (Milestone) -> Unit,
 ) :
-    RecyclerView.Adapter<RoadMapAdapter.RoadMapViewHolder>() {
+    RecyclerView.Adapter<RoadMapAdapter.RoadMapViewHolderV2>() {
 
-    // lessons is now a 3d list
-    // List<List<Lesson>>
-    // It is a list of 10 lists max each
-    private val lessons = level.milestones.chunked(10)
 
-    inner class RoadMapViewHolder(private val viewBinding: RoadMapNodeSetLayoutBinding) :
+    private val milestones = level.milestones
+
+    inner class RoadMapViewHolderV2(private val viewBinding: RoadMapNodeLayoutBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
-        private val nodeBindings = listOf(
-            viewBinding.node1,
-            viewBinding.node2,
-            viewBinding.node3,
-            viewBinding.node4,
-            viewBinding.node5,
-            viewBinding.node6,
-            viewBinding.node7,
-            viewBinding.node8
-        )
 
-        fun bind(milestones: List<Milestone>, position: Int) {
-            nodeBindings.forEachIndexed { index, binding ->
-                val originalIndex = position * 10 + index + 1
-                val milestone = milestones.getOrNull(index)
+            private fun selectedBackground() = with(viewBinding) {
+                textView.setBackgroundResource(R.drawable.roadmap_node_selected)
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        root.context,
+                        R.color.screen_bg
+                    )
+                )
+            }
 
-                // Enable only if:
-                // progress level == current level && progress lesson >= lesson number
-                // else - progress level should be greater than current level
-                val isProgressDone = if (progress.currentLevel == level.levelNumber) {
-                    progress.currentMilestone >= originalIndex
-                } else {
-                    progress.currentLevel > level.levelNumber
+        private fun lockedBackground() = with(viewBinding) {
+            textView.setBackgroundResource(R.drawable.roadmap_node_locked)
+            textView.setTextColor(
+                ContextCompat.getColor(
+                    root.context,
+                    R.color.screen_bg
+                )
+            )
+        }
+        fun bind(milestone: Milestone, position: Int) = with(viewBinding) {
+            textView.text = milestone.roadMapTitle
+
+            if (milestone.number <= selectedMilestoneNumber) {
+                if (milestone.number == selectedMilestoneNumber) {
+                    selectedBackground()
                 }
+                textView.setOnClickListener {
+                    onMilestoneSelected.invoke(milestone)
+                }
+            } else {
+                lockedBackground()
+            }
 
-                val isSelected = originalIndex == selectedLesson
-                milestone?.let {
-                    // Enable or disable
-                    binding.root.text = milestone.pageHeader
 
-                    if(isSelected || isProgressDone) {
-                        binding.root.setOnClickListener {
-                            // Navigate to lesson
-                            onMilestoneSelected.invoke(milestone)
-                        }
-                    }
+            // Post to ensure layout is measured
+            root.post {
+                val parentWidth = (root.parent as View).width
+                val fourth = parentWidth / 4
 
-                    if (isSelected && isProgressDone) {
-                        with(binding) {
-                            root.setBackgroundResource(R.drawable.roadmap_node_selected)
-                            root.setTextColor(
-                                ContextCompat.getColor(
-                                    root.context,
-                                    R.color.screen_bg
-                                )
-                            )
-                        }
-                    } else if (!isProgressDone) {
-                        binding.root.setBackgroundResource(R.drawable.roadmap_node_locked)
-                        binding.root.setTextColor(
-                            ContextCompat.getColor(
-                                binding.root.context,
-                                R.color.screen_bg
-                            )
+                val constraintSet = ConstraintSet()
+                constraintSet.clone(root) // root is ConstraintLayout
+
+                // Clear old horizontal constraints
+                constraintSet.clear(textView.id, ConstraintSet.START)
+                constraintSet.clear(textView.id, ConstraintSet.END)
+
+                when (position % 6) {
+                    0 -> {
+                        // Align to start, no margin
+                        constraintSet.connect(
+                            textView.id, ConstraintSet.START,
+                            ConstraintSet.PARENT_ID, ConstraintSet.START
                         )
+                        constraintSet.setMargin(textView.id, ConstraintSet.START, 0)
                     }
-                } ?: run {
-                    binding.root.visibility = View.INVISIBLE
+
+                    1 -> {
+                        // Align to start with 25% margin
+                        constraintSet.connect(
+                            textView.id, ConstraintSet.START,
+                            ConstraintSet.PARENT_ID, ConstraintSet.START
+                        )
+                        constraintSet.setMargin(textView.id, ConstraintSet.START, fourth)
+                    }
+
+                    2 -> {
+                        // Align to end with 25% margin
+                        constraintSet.connect(
+                            textView.id, ConstraintSet.END,
+                            ConstraintSet.PARENT_ID, ConstraintSet.END
+                        )
+                        constraintSet.setMargin(textView.id, ConstraintSet.END, fourth)
+                    }
+
+                    3 -> {
+                        // Align to end, no margin
+                        constraintSet.connect(
+                            textView.id, ConstraintSet.END,
+                            ConstraintSet.PARENT_ID, ConstraintSet.END
+                        )
+                        constraintSet.setMargin(textView.id, ConstraintSet.END, 0)
+                    }
+
+                    4 -> {
+                        // Align to end with 25% margin
+                        constraintSet.connect(
+                            textView.id, ConstraintSet.END,
+                            ConstraintSet.PARENT_ID, ConstraintSet.END
+                        )
+                        constraintSet.setMargin(textView.id, ConstraintSet.END, fourth)
+                    }
+
+                    5 -> {
+                        // Align to start with 25% margin
+                        constraintSet.connect(
+                            textView.id, ConstraintSet.START,
+                            ConstraintSet.PARENT_ID, ConstraintSet.START
+                        )
+                        constraintSet.setMargin(textView.id, ConstraintSet.START, fourth)
+                    }
                 }
 
-
+                // Apply updated constraints
+                val transition = ChangeBounds().apply {
+                    duration = 500 // 500 milliseconds (0.5s)
+                }
+                TransitionManager.beginDelayedTransition(root, transition)
+                constraintSet.applyTo(root)
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoadMapViewHolder {
-        return RoadMapViewHolder(
-            RoadMapNodeSetLayoutBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoadMapViewHolderV2 {
+        return RoadMapViewHolderV2(
+            RoadMapNodeLayoutBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -101,10 +150,10 @@ class RoadMapAdapter(
         )
     }
 
-    override fun getItemCount(): Int = lessons.size
+    override fun getItemCount(): Int = milestones.size
 
 
-    override fun onBindViewHolder(holder: RoadMapViewHolder, position: Int) {
-        holder.bind(lessons[position], position)
+    override fun onBindViewHolder(holder: RoadMapViewHolderV2, position: Int) {
+        holder.bind(milestones[position], position)
     }
 }
