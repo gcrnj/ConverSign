@@ -18,6 +18,8 @@
     <color name="student_selection_text_color">#CEDFE7</color>
     <color name="student_selection_image_color">#CEDFE7</color>
 
+    <color name="grey">#B8CDD7</color>
+
 
     <color name="nice_job_text_color">#066818</color>
     <color name="nice_job_bg_color">#8CD58E</color>

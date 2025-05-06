@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Lesson
 import com.cltb.initiative.conversign.databinding.LessonLayoutBinding
 import com.google.firebase.storage.FirebaseStorage
@@ -13,7 +14,7 @@ import com.google.firebase.storage.FirebaseStorage
 class SignsAdapter(private val lessons: List<Lesson>): RecyclerView.Adapter<SignsAdapter.SignsViewHolder>() {
 
     inner class  SignsViewHolder(val binding: LessonLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(lesson: Lesson) {
+        fun bind(lesson: Lesson, position: Int) {
             binding.signNameTextView.text = lesson.signName
             binding.lessonHintTextView.text = lesson.signHint
 //            val storageRef = FirebaseStorage.getInstance().getReference()
@@ -23,6 +24,8 @@ class SignsAdapter(private val lessons: List<Lesson>): RecyclerView.Adapter<Sign
             storageRef.downloadUrl.addOnSuccessListener { uri ->
                 Glide.with(binding.image.context)
                     .load(uri)
+                    .placeholder(R.drawable.loading) // 👈 Add your loading drawable here
+                    .error(R.drawable.failed_loading)           // 👈 Optional: error drawable if load fails
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(binding.image)
@@ -30,6 +33,12 @@ class SignsAdapter(private val lessons: List<Lesson>): RecyclerView.Adapter<Sign
                 Log.e("Firebase", "Failed to get download URL", exception)
             }
 
+
+            if(position % 2 == 0) {
+                binding.root.setBackgroundColor(
+                    binding.root.context.getColor(R.color.grey)
+                )
+            }
         }
     }
 
@@ -43,9 +52,13 @@ class SignsAdapter(private val lessons: List<Lesson>): RecyclerView.Adapter<Sign
         )
     }
 
-    override fun getItemCount(): Int = lessons.size
+    override fun getItemCount(): Int {
+        val length = lessons.size // = 4
+        return length
+    }
 
     override fun onBindViewHolder(holder: SignsViewHolder, position: Int) {
-        holder.bind(lessons[position])
+        val lesson = lessons[position] // Why is position always 0-2?
+        holder.bind(lesson, position)
     }
 }
