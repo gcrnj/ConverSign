@@ -11,4 +11,15 @@ data class Progress(
     val currentSection: Int,
     val lastAttempt: Timestamp? = null,
     val health: Int,
-) : Parcelable
+) : Parcelable {
+
+    fun isGreaterThan(other: Progress): Boolean {
+        return compareValuesBy(this, other,
+            { it.currentSection },
+            { it.currentLevel },
+            { it.currentMilestone }
+        ) > 0
+    }
+
+
+}

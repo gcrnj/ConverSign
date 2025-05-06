@@ -13,6 +13,7 @@ import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.databinding.ActivityStudentsBinding
 import com.cltb.initiative.conversign.student.fragments.SectionFragment
 import androidx.activity.viewModels // For Activity
+import androidx.fragment.app.FragmentTransaction
 import com.cltb.initiative.conversign.student.viewmodels.ProgressViewModel
 import com.cltb.initiative.conversign.utils.ViewModelUtils.observeOnce
 import com.google.firebase.auth.FirebaseAuth
@@ -101,6 +102,7 @@ class StudentsActivity : AppCompatActivity() {
         fragmentClass: Class<out Fragment>,
         args: Bundle? = null,
         showBackButton: Boolean = true,
+        popCurrentFragment: Boolean = false,
     ) {
         val fragment = fragmentClass.getDeclaredConstructor().newInstance().apply {
             arguments = args
@@ -116,6 +118,9 @@ class StudentsActivity : AppCompatActivity() {
             .replace(binding.selectionFrameLayout.id, fragment)
             .apply {
                 addToBackStack(fragmentClass.simpleName)
+                if(popCurrentFragment) {
+                    supportFragmentManager.popBackStack()
+                }
             }
             .commit()
 
@@ -125,6 +130,10 @@ class StudentsActivity : AppCompatActivity() {
         } else {
             View.GONE
         }
+    }
+
+    fun goBack() {
+        supportFragmentManager.popBackStack()
     }
 
     private fun setHealth(health: Int) {

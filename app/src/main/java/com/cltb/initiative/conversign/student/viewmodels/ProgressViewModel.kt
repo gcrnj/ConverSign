@@ -10,6 +10,7 @@ import com.cltb.initiative.conversign.utils.FireStoreUtils.progressDoc
 import com.google.firebase.firestore.SetOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.tasks.await
 
 class ProgressViewModel : ViewModel() {
 
@@ -38,19 +39,17 @@ class ProgressViewModel : ViewModel() {
             }
     }
 
-    fun saveProgressToFireStore(userId: String) {
-        _progress.value?.let { progress ->
+    suspend fun saveNewProgressToFireStore(userId: String, newProgress: Progress?) {
+        newProgress?.let { progress ->
             val json = Gson().toJson(progress)
             val data: Map<String, Any> =
-                Gson().fromJson(json, object : TypeToken<Map<String, Any>>() {}.type)
+                Gson().fromJson<Map<String, Any>?>(json, object : TypeToken<Map<String, Any>>() {}.type).apply {
+                    toMutableMap().remove("health")
+                    toMap()
+                }
             progressDoc(userId)
                 .update(data)
-                .addOnSuccessListener {
-                    Log.d("Firestore", "Progress saved successfully.")
-                }
-                .addOnFailureListener { e ->
-                    Log.e("Firestore", "Error saving progress", e)
-                }
+                .await()
         }
     }
 

@@ -1,29 +1,26 @@
 package com.cltb.initiative.conversign.student.fragments
 
-import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cltb.initiative.conversign.R
-import com.cltb.initiative.conversign.data.ChallengeMilestone
 import com.cltb.initiative.conversign.data.LessonMilestone
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.data.Milestone
-import com.cltb.initiative.conversign.data.sections
+import com.cltb.initiative.conversign.data.Section
 import com.cltb.initiative.conversign.databinding.FragmentLessonBinding
+import com.cltb.initiative.conversign.game_data.GameFlow
+import com.cltb.initiative.conversign.game_data.GameFlow.Companion.LEVEL_NUMBER
+import com.cltb.initiative.conversign.game_data.GameFlow.Companion.MILESTONE_NUMBER
+import com.cltb.initiative.conversign.game_data.GameFlow.Companion.SECTION_NUMBER
 import com.cltb.initiative.conversign.student.StudentsActivity
 import com.cltb.initiative.conversign.student.adapter.SignsAdapter
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 
 
 class LessonFragment : Fragment() {
@@ -35,39 +32,30 @@ class LessonFragment : Fragment() {
         (requireActivity() as StudentsActivity).viewModel
     }
 
-    private val level: Level? by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable(LEVEL, Level::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            arguments?.getParcelable(LEVEL)
-        }
+    private val gameFlow by lazy {
+        GameFlow(this, requireActivity() as StudentsActivity)
     }
 
-    var currentChallenge = 0
+    private val selectedSection: Section? by lazy {
+        val sectionNumber = arguments?.getInt(SECTION_NUMBER) ?: 0
+        gameFlow.getSection(sectionNumber)
+    }
+
+    private val selectedLevel: Level? by lazy {
+        val levelNumber = arguments?.getInt(LEVEL_NUMBER) ?: 0
+        gameFlow.getLevel(
+            currentSection = selectedSection?.sectionNumber ?: 0,
+            currentLevel = levelNumber,
+        )
+    }
 
     private val selectedMilestone: Milestone? by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable(MILESTONE, Milestone::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            arguments?.getParcelable(MILESTONE)
-        }
-    }
-
-    private val showPreviousButton: Boolean by lazy {
-        arguments?.getBoolean(SHOW_PREVIOUS_BUTTON, false) ?: false
-    }
-
-    // Register permission launcher
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            startCamera()
-        } else {
-            Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
-        }
+        val milestoneNumber = arguments?.getInt(MILESTONE_NUMBER) ?: 0
+        gameFlow.getMilestone(
+            currentSection = selectedSection?.sectionNumber ?: 0,
+            currentLevel = selectedLevel?.levelNumber ?: 0,
+            currentMilestone = milestoneNumber
+        )
     }
 
 
@@ -84,7 +72,6 @@ class LessonFragment : Fragment() {
         setClickListeners()
         updateUI()
 //        setObservers()
-        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
     private fun setObservers() {
@@ -93,120 +80,80 @@ class LessonFragment : Fragment() {
         }
     }
 
-    private fun setClickListeners() = with(binding){
+    private fun setClickListeners() = with(binding) {
         roadmapButton.setOnClickListener {
             // Navigate to roadmap fragment
-            (requireActivity() as StudentsActivity).changeFragment(
-                RoadMapFragment::class.java,
-                Bundle().apply {
-                    putParcelable(LEVEL, level)
-                }
-            )
+            (requireActivity() as StudentsActivity).goBack()
         }
 
         lessonNextButton.setOnClickListener { button ->
             button.isEnabled = false
+            viewLifecycleOwner.lifecycleScope.launch {
+                gameFlow.next(
+                    firebaseProgress = progressViewModel.progress.value ?: return@launch,
+                    currentSection = selectedSection?.sectionNumber ?: return@launch,
+                    currentLevel = selectedLevel?.levelNumber ?: return@launch,
+                    currentMilestone = selectedMilestone?.number ?: return@launch
+                ) { newProgress ->
+                    // Add to database
+                    progressViewModel.saveNewProgressToFireStore(
+                        userId = FirebaseAuth.getInstance().currentUser?.uid ?: "",
+                        newProgress = newProgress
+                    )
+                }
+            }
+        }
 
-            // Add 1 to current milestone
-            progressViewModel.nextMilestoneLevel(FirebaseAuth.getInstance().currentUser?.uid ?: "") { newProgress ->
-                val newMilestone = with(newProgress) {
-                    val selectedSection = sections.find { it.sectionNumber == currentSection }
-                    val selectedLevel = selectedSection?.levels?.find { it.levelNumber == currentLevel }
-                    val selectedMilestone = selectedLevel?.milestones?.find { it.number == currentMilestone }
-                    selectedMilestone
-                }
-                val newArgs = Bundle().apply {
-                    putParcelable(MILESTONE, newMilestone)
-                    putBoolean(SHOW_PREVIOUS_BUTTON, true)
-                }
-                (requireActivity() as StudentsActivity).changeFragment(
-                    LessonFragment::class.java,
-                    newArgs
+        lessonPreviousButton.setOnClickListener { button ->
+            button.isEnabled = false
+            viewLifecycleOwner.lifecycleScope.launch {
+                gameFlow.previous(
+                    currentSection = selectedSection?.sectionNumber ?: return@launch,
+                    currentLevel = selectedLevel?.levelNumber ?: return@launch,
+                    currentMilestone = selectedMilestone?.number ?: return@launch
                 )
             }
         }
 
-        challengePreviousClickListener.setOnClickListener { button ->
-            button.isEnabled = false
-            // Add 1 to current challenge
-            progressViewModel.nextMilestoneLevel(FirebaseAuth.getInstance().currentUser?.uid ?: "") {
-                button.isEnabled = true
-            }
-        }
-
-        nextButton.setOnClickListener {
-            // Relaunch fragment but with new parameters
-            val currentProgress = progressViewModel.progress.value
-//            progressViewModel.setNewProgress(FirebaseAuth.getInstance().currentUser?.uid ?: "")
-            val newArgs = Bundle().apply {
-                // Check if last
-//                if(level?.lessons?.size == currentLesson) {
-//                    // Last lesson
-//                }
-//                putParcelable(LEVEL, level)
-//                putInt(CURRENT_LESSON, currentLesson + 1)
-//                putInt(CURRENT_CHALLENGE, 0)
-//                // Add any custom arguments here
-            }
-
-            currentChallenge += 1
-            updateUI()
-        }
+//        challengePreviousClickListener.setOnClickListener { button ->
+//            button.isEnabled = false
+//            // Add 1 to current challenge
+//            progressViewModel.nextMilestoneLevel(FirebaseAuth.getInstance().currentUser?.uid ?: "") {
+//                button.isEnabled = true
+//            }
+//        }
+//
+//        nextButton.setOnClickListener {
+//            // Relaunch fragment but with new parameters
+//            val currentProgress = progressViewModel.progress.value
+////            progressViewModel.setNewProgress(FirebaseAuth.getInstance().currentUser?.uid ?: "")
+//            val newArgs = Bundle().apply {
+//                // Check if last
+////                if(level?.lessons?.size == currentLesson) {
+////                    // Last lesson
+////                }
+////                putParcelable(LEVEL, level)
+////                putInt(CURRENT_LESSON, currentLesson + 1)
+////                putInt(CURRENT_CHALLENGE, 0)
+////                // Add any custom arguments here
+//            }
+//
+//            currentChallenge += 1
+//            updateUI()
+//        }
     }
 
     private fun updateUI() = with(binding) {
-        val isLesson = selectedMilestone is LessonMilestone
-        lessonsLinearLayout.visibility = if (isLesson) View.VISIBLE else View.GONE
-        challengeConstraintLayout.visibility = if (isLesson) View.GONE else View.VISIBLE
-
+        lessonPreviousButton.visibility = if ((selectedMilestone?.number ?: 0) > 1) View.VISIBLE else View.GONE
         selectedMilestone ?: return@with
 
-        if(isLesson) {
-            // Update lesson
-            val lesson = selectedMilestone as LessonMilestone
-            gameTypeTextView.text = lesson.pageHeader
-            headerSubtitleTextView.text = lesson.pageSubHeader
-            signsRecyclerView.apply {
-                adapter = SignsAdapter(lesson.lessons)
-                layoutManager = LinearLayoutManager(requireContext())
-            }
-        } else {
-            // Update challenge
-            gameTypeTextView.text = getString(R.string.challenge)
-            challengePreviousClickListener.visibility = if(showPreviousButton) View.VISIBLE else View.GONE
-
-            val challengeMilestone = selectedMilestone as ChallengeMilestone
-            val challenge = challengeMilestone.challenges[currentChallenge]
-            headerSubtitleTextView.text = getString(R.string.sign_value, challenge.answer)
+        // Update lesson
+        val lesson = selectedMilestone as LessonMilestone
+        gameTypeTextView.text = lesson.pageHeader
+        headerSubtitleTextView.text = lesson.pageSubHeader
+        signsRecyclerView.apply {
+            adapter = SignsAdapter(lesson.lessons)
+            layoutManager = LinearLayoutManager(requireContext())
         }
-    }
-
-
-    private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity())
-
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
-
-            val preview = Preview.Builder().build().also {
-                it.surfaceProvider = binding.cameraView.surfaceProvider
-            }
-
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
-
-            try {
-                cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview)
-            } catch (exc: Exception) {
-                Toast.makeText(requireActivity(), "Camera Binding failed", Toast.LENGTH_LONG).show()
-            }
-        }, ContextCompat.getMainExecutor(requireActivity()))
-    }
-
-    companion object {
-        const val LEVEL = "LEVEL" // For roadmap
-        const val MILESTONE = "CURRENT_CHALLENGE_LESSON"
-        const val SHOW_PREVIOUS_BUTTON = "CURRENT_CHALLENGE_LESSON"
-
     }
 }

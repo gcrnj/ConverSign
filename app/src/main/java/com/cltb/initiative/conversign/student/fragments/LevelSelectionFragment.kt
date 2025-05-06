@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cltb.initiative.conversign.data.Section
 import com.cltb.initiative.conversign.databinding.FragmentLevelSelectionBinding
+import com.cltb.initiative.conversign.game_data.GameFlow
 import com.cltb.initiative.conversign.student.StudentsActivity
 import com.cltb.initiative.conversign.student.adapter.LevelSelectionAdapter
 
@@ -25,13 +26,13 @@ class LevelSelectionFragment : Fragment() {
         (requireActivity() as StudentsActivity).viewModel
     }
 
+    private val gameFlow by lazy {
+        GameFlow(this, requireActivity() as StudentsActivity)
+    }
+
     private val section: Section? by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable(SECTION, Section::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            arguments?.getParcelable(SECTION)
-        }
+        val sectionNumber = arguments?.getInt(GameFlow.SECTION_NUMBER) ?: 0
+        gameFlow.getSection(sectionNumber)
     }
 
     private val levels by lazy {
@@ -66,18 +67,10 @@ class LevelSelectionFragment : Fragment() {
 
             val adapter = LevelSelectionAdapter(levels, progress) { level ->
                 (requireActivity() as StudentsActivity).changeFragment(
-                    fragmentClass = LessonFragment::class.java,
+                    fragmentClass = RoadMapFragment::class.java,
                     args = Bundle().apply {
-                        putParcelable(LessonFragment.LEVEL, level)
-                        val isCurrentSection = progress.currentSection == section?.sectionNumber
-                        val isCurrentLevel = progress.currentLevel == level.levelNumber
-                        val isInLatestSelection = isCurrentLevel && isCurrentSection
-                        val currentMilestone = if (isInLatestSelection) {
-                            level.milestones.find { it.number == progress.currentMilestone }
-                        } else {
-                            level.milestones.first()
-                        }
-                        putParcelable(LessonFragment.MILESTONE, currentMilestone)
+                        putInt(GameFlow.SECTION_NUMBER, section?.sectionNumber ?: -1)
+                        putInt(GameFlow.LEVEL_NUMBER, level.levelNumber)
                     }
                 )
             }

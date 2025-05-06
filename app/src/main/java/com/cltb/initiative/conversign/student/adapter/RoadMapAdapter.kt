@@ -15,6 +15,7 @@ class RoadMapAdapter(
     private val level: Level,
     private val progress: Progress,
     private val selectedLesson: Int,
+    private val onMilestoneSelected: (Milestone) -> Unit,
 ) :
     RecyclerView.Adapter<RoadMapAdapter.RoadMapViewHolder>() {
 
@@ -36,10 +37,10 @@ class RoadMapAdapter(
             viewBinding.node8
         )
 
-        fun bind(lessons: List<Milestone>, position: Int) {
+        fun bind(milestones: List<Milestone>, position: Int) {
             nodeBindings.forEachIndexed { index, binding ->
                 val originalIndex = position * 10 + index + 1
-                val lesson = lessons.getOrNull(index)
+                val milestone = milestones.getOrNull(index)
 
                 // Enable only if:
                 // progress level == current level && progress lesson >= lesson number
@@ -51,23 +52,39 @@ class RoadMapAdapter(
                 }
 
                 val isSelected = originalIndex == selectedLesson
-                lesson?.let {
+                milestone?.let {
                     // Enable or disable
-                    binding.root.text = lesson.pageHeader
-                    binding.root.setOnClickListener {
-                        // Navigate to lesson
+                    binding.root.text = milestone.pageHeader
+
+                    if(isSelected || isProgressDone) {
+                        binding.root.setOnClickListener {
+                            // Navigate to lesson
+                            onMilestoneSelected.invoke(milestone)
+                        }
                     }
+
                     if (isSelected && isProgressDone) {
-                        binding.root.setBackgroundResource(R.drawable.roadmap_node_selected)
-                        binding.root.setTextColor(ContextCompat.getColor(binding.root.context, R.color.screen_bg))
+                        with(binding) {
+                            root.setBackgroundResource(R.drawable.roadmap_node_selected)
+                            root.setTextColor(
+                                ContextCompat.getColor(
+                                    root.context,
+                                    R.color.screen_bg
+                                )
+                            )
+                        }
                     } else if (!isProgressDone) {
                         binding.root.setBackgroundResource(R.drawable.roadmap_node_locked)
-                        binding.root.setTextColor(ContextCompat.getColor(binding.root.context, R.color.screen_bg))
+                        binding.root.setTextColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color.screen_bg
+                            )
+                        )
                     }
                 } ?: run {
                     binding.root.visibility = View.INVISIBLE
                 }
-
 
 
             }

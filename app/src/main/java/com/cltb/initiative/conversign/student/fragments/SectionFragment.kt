@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cltb.initiative.conversign.data.sections
 import com.cltb.initiative.conversign.databinding.FragmentSectionBinding
+import com.cltb.initiative.conversign.game_data.GameFlow
 import com.cltb.initiative.conversign.student.StudentsActivity
 import com.cltb.initiative.conversign.student.adapter.SectionSelectionAdapter
 import com.cltb.initiative.conversign.student.viewmodels.ProgressViewModel
@@ -55,7 +56,7 @@ class SectionFragment : Fragment() {
                 (requireActivity() as StudentsActivity).changeFragment(
                     fragmentClass = LevelSelectionFragment::class.java,
                     args = Bundle().apply {
-                        putParcelable(LevelSelectionFragment.SECTION, section)
+                        putInt(GameFlow.SECTION_NUMBER, section.sectionNumber)
                     }
                 )
             }

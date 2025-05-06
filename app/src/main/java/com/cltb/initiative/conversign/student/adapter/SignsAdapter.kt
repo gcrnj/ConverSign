@@ -34,9 +34,13 @@ class SignsAdapter(private val lessons: List<Lesson>): RecyclerView.Adapter<Sign
             }
 
 
-            if(position % 2 == 0) {
+            if(position % 2 == 1) {
                 binding.root.setBackgroundColor(
                     binding.root.context.getColor(R.color.grey)
+                )
+            } else {
+                binding.root.setBackgroundColor(
+                    binding.root.context.getColor(R.color.screen_bg)
                 )
             }
         }
