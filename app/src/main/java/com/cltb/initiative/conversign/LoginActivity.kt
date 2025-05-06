@@ -109,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
             )
             .get() // Retrieve all documents with that role
             .addOnCompleteListener { snapshot ->
-                snapshot.result?.let { document ->
+                snapshot.result?.data?.let { data ->
                     // Found the current user's document, parse it
                     SharedPrefUtils(this).saveData(
                         SharedPrefUtils.Keys.Role,
@@ -141,14 +141,16 @@ class LoginActivity : AppCompatActivity() {
                     }
                 } ?: run {
                     // Logged in but no document was found for the current user
-                    Log.d("updateUI", "No user document found with the selected role.")
-                    Log.d("updateUI", "Exception: ${snapshot.exception}")
-                    Log.d("updateUI", "Starting SignUpActivity")
-                    val intent = Intent(
-                        this,
-                        SignUpActivity::class.java
-                    ).putExtra("email", email)
-                    startActivity(intent)
+                    // Might be other roles
+                    showError(getString(R.string.invalid_credentials_please_try_again))
+//                    Log.d("updateUI", "No user document found with the selected role.")
+//                    Log.d("updateUI", "Exception: ${snapshot.exception}")
+//                    Log.d("updateUI", "Starting SignUpActivity")
+//                    val intent = Intent(
+//                        this,
+//                        SignUpActivity::class.java
+//                    ).putExtra("email", email)
+//                    startActivity(intent)
                     binding.loginButton.isEnabled = true
                     binding.loginProgressBar.visibility = View.GONE
                 }
