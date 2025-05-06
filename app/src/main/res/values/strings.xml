@@ -47,4 +47,6 @@
     <string name="cannot_find_class_code">Cannot find the class code.</string>
     <string name="sign_value">Sign \"%1$s\"</string>
     <string name="next">Next</string>
+    <string name="you_got_that_correctly">You got that correctly</string>
+    <string name="nice_job">Nice Job!</string>
 </resources>
