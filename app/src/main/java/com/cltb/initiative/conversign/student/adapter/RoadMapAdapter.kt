@@ -129,6 +129,7 @@ class RoadMapAdapter(
                         constraintSet.setMargin(textView.id, ConstraintSet.START, fourth)
                     }
                 }
+                constraintSet.applyTo(root)
             }
         }
     }
