@@ -72,10 +72,9 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.camera.view)
 
-    implementation (libs.glide)
-    annotationProcessor (libs.compiler)
-
     implementation (libs.circleimageview)
+
+    implementation (libs.coil)
 
 
 }

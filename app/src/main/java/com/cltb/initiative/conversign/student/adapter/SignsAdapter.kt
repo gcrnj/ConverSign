@@ -4,8 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import coil.load
 import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.Lesson
 import com.cltb.initiative.conversign.databinding.LessonLayoutBinding
@@ -22,13 +21,7 @@ class SignsAdapter(private val lessons: List<Lesson>): RecyclerView.Adapter<Sign
             val storageRef = FirebaseStorage.getInstance().getReference(lesson.signFirebaseImage)
 
             storageRef.downloadUrl.addOnSuccessListener { uri ->
-                Glide.with(binding.image.context)
-                    .load(uri)
-                    .placeholder(R.drawable.loading) // 👈 Add your loading drawable here
-                    .error(R.drawable.failed_loading)           // 👈 Optional: error drawable if load fails
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(binding.image)
+                binding.image.load(uri)
             }.addOnFailureListener { exception ->
                 Log.e("Firebase", "Failed to get download URL", exception)
             }

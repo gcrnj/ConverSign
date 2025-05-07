@@ -1,13 +1,18 @@
 package com.cltb.initiative.conversign.student.viewmodels
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.utils.FireStoreUtils
+import com.cltb.initiative.conversign.utils.FirebaseStorageUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class StudentProfileViewModel : ViewModel() {
     private val _student = MutableLiveData<Student?>()
@@ -50,6 +55,31 @@ class StudentProfileViewModel : ViewModel() {
 
         latch.await() // blocks the current thread, be cautious if on UI thread
         return progress
+    }
+
+
+    fun uploadProfilePicture(
+        uri: Uri,
+        studentId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "",
+        onResult: (error: String?) -> Unit,
+    ) {
+        viewModelScope.launch {
+            try {
+                // Validate the URI (you can add more checks if needed)
+                if (uri.scheme != "content") {
+                    onResult.invoke("Invalid URI scheme")
+                    return@launch
+                }
+
+                // Upload to firebase
+                val uploadTask = FirebaseStorageUtils.studentProfileRef(studentId = studentId).putFile(uri)
+                uploadTask.await()
+
+                onResult.invoke(null)
+            } catch (e: Exception) {
+                onResult.invoke(e.message ?: "There was an error uploading the profile picture.")
+            }
+        }
     }
 
 
