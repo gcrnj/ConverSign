@@ -13,9 +13,14 @@ import com.cltb.initiative.conversign.student.StudentsActivity
 import com.cltb.initiative.conversign.student.fragments.ChallengeFragment
 import com.cltb.initiative.conversign.student.fragments.LessonFragment
 
+/**
+ * Only set `null` to [fragment] and [studentsActivity] when
+ * you plan to use [getSection], [getLevel] and [getMilestone]
+ *
+ */
 class GameFlow(
-    private val fragment: Fragment,
-    private val studentsActivity: StudentsActivity,
+    private val fragment: Fragment? = null,
+    private val studentsActivity: StudentsActivity? = null,
 ) {
 
 
@@ -166,7 +171,7 @@ class GameFlow(
         when (milestone) {
             is LessonMilestone -> {
                 // Go to the previous which is a lesson
-                studentsActivity.changeFragment(
+                studentsActivity?.changeFragment(
                     fragmentClass = LessonFragment::class.java,
                     args = args,
                     popCurrentFragment = popCurrentFragment,
@@ -174,7 +179,7 @@ class GameFlow(
             }
 
             is ChallengeMilestone -> {
-                studentsActivity.changeFragment(
+                studentsActivity?.changeFragment(
                     fragmentClass = ChallengeFragment::class.java,
                     args = args,
                     popCurrentFragment = popCurrentFragment,

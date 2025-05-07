@@ -13,7 +13,6 @@ import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.databinding.ActivityStudentsBinding
 import com.cltb.initiative.conversign.student.fragments.SectionFragment
 import androidx.activity.viewModels // For Activity
-import androidx.fragment.app.FragmentTransaction
 import com.cltb.initiative.conversign.student.viewmodels.ProgressViewModel
 import com.cltb.initiative.conversign.utils.ViewModelUtils.observeOnce
 import com.google.firebase.auth.FirebaseAuth
@@ -87,7 +86,7 @@ class StudentsActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     this,
-                    StudentProfileActivity::class.java
+                    StudentSettingsActivity::class.java
                 )
             )
         }

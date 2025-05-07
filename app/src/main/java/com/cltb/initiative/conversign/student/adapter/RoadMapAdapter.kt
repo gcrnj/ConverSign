@@ -129,13 +129,6 @@ class RoadMapAdapter(
                         constraintSet.setMargin(textView.id, ConstraintSet.START, fourth)
                     }
                 }
-
-                // Apply updated constraints
-                val transition = ChangeBounds().apply {
-                    duration = 500 // 500 milliseconds (0.5s)
-                }
-                TransitionManager.beginDelayedTransition(root, transition)
-                constraintSet.applyTo(root)
             }
         }
     }
