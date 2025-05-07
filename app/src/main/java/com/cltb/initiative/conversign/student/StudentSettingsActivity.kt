@@ -1,9 +1,11 @@
 package com.cltb.initiative.conversign.student
 
 import android.Manifest
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -87,11 +89,10 @@ class StudentSettingsActivity : AppCompatActivity() {
                 negativeText = "Cancel",
                 positiveAction = {
                     // Launch settings
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(getMediaPermissionType()),
-                        1
-                    )
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = Uri.fromParts("package", packageName, null)
+                    }
+                    startActivity(intent)
                 }
             )
         }

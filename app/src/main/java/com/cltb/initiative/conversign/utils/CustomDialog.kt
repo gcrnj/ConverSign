@@ -18,19 +18,27 @@ class CustomDialog(private val activity: AppCompatActivity) {
     fun showDialog(
         title: String,
         message: String,
-        positiveText: String,
-        negativeText: String,
+        positiveText: String = binding.positiveButton.text.toString(),
+        negativeText: String = binding.negativeButton.text.toString(),
         positiveAction: () -> Unit,
         negativeAction: (() -> Unit)? = null,
-    ) {
-        dialog.setContentView(binding.root)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-//        binding.titleTextView.text = title
-//        binding.messageTextView.text = message
-//        binding.positiveButton.text = positiveText
-//        binding.negativeButton.text = negativeText
+    ) = with(dialog) {
+        setContentView(binding.root)
+        window?.setBackgroundDrawableResource(android.R.color.transparent)
+        // Texts
+        binding.titleTextView.text = title
+        binding.messageTextView.text = message
+        binding.positiveButton.text = positiveText
+        binding.negativeButton.text = negativeText
+        // Buttons
+        binding.positiveButton.setOnClickListener {
+            positiveAction.invoke()
+        }
+        binding.negativeButton.setOnClickListener {
+            negativeAction?.invoke() ?: dismiss()
+        }
 
-        dialog.show()
+        show()
 
     }
 

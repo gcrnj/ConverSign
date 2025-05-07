@@ -60,4 +60,6 @@
     <string name="to_do_list">To-do list</string>
     <string name="note_taking">Note-taking</string>
     <string name="badges_and_achievements">Badges and Achievements</string>
+    <string name="okay">Okay</string>
+    <string name="cancel">Cancel</string>
 </resources>
