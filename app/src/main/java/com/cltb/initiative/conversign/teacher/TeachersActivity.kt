@@ -21,6 +21,10 @@ class TeachersActivity : AppCompatActivity() {
 
     private val teachersViewModel: TeachersViewModel by viewModels()
 
+    private val bottomSheet by lazy {
+        MilestoneSelectorBottomSheet(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -53,6 +57,10 @@ class TeachersActivity : AppCompatActivity() {
                 }
             )
             finish()
+        }
+
+        levelText.setOnClickListener {
+            bottomSheet.show()
         }
     }
 

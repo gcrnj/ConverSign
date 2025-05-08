@@ -57,15 +57,19 @@
 
     <TextView
         android:id="@+id/levelText"
-        android:layout_width="wrap_content"
+        style="?selectableItemBackground"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/k2d_extrabolditalic"
-        android:text="Level 1: Alphabet"
+        android:maxLines="2"
+        android:paddingStart="8dp"
+        android:paddingEnd="0dp"
         android:textColor="@color/deep_green"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoImageImage" />
+        app:drawableEndCompat="@drawable/chevron_right_24"
+        app:layout_constraintTop_toBottomOf="@id/logoImageImage"
+        app:drawableTint="@color/deep_green"
+        tools:text="Level 1: Alphabet" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/studentsRecyclerView"
