@@ -301,7 +301,7 @@
 
                 <!-- Logout -->
                 <LinearLayout
-                    android:id="@+id/logout_option"
+                    android:id="@+id/logoutOption"
                     style="?selectableItemBackground"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

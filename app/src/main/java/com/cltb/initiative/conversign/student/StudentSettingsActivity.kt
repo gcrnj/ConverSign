@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import coil.load
+import com.cltb.initiative.conversign.MainActivity
 import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.databinding.ActivityStudentSettingsBinding
 import com.cltb.initiative.conversign.game_data.GameFlow
@@ -23,6 +24,7 @@ import com.cltb.initiative.conversign.student.viewmodels.ProgressViewModel
 import com.cltb.initiative.conversign.student.viewmodels.StudentProfileViewModel
 import com.cltb.initiative.conversign.utils.CustomDialog
 import com.cltb.initiative.conversign.utils.FirebaseStorageUtils
+import com.cltb.initiative.conversign.utils.SharedPrefUtils
 import com.google.firebase.auth.FirebaseAuth
 
 class StudentSettingsActivity : AppCompatActivity() {
@@ -154,6 +156,19 @@ class StudentSettingsActivity : AppCompatActivity() {
 
         editProfileButton.setOnClickListener {
 
+        }
+
+        logoutOption.setOnClickListener {
+            SharedPrefUtils(this@StudentSettingsActivity).logout()
+            startActivity(
+                Intent(
+                    this@StudentSettingsActivity,
+                    MainActivity::class.java
+                ).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+            )
+            finish()
         }
 
     }
