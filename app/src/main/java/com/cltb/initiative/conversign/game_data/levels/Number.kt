@@ -22,12 +22,12 @@ object Number : Level(
                 Lesson(
                     signName = "1",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/1.png"
+                    signFirebaseImage = "signs/numbers/1.jpg"
                 ),
                 Lesson(
                     signName = "2",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/2.png"
+                    signFirebaseImage = "signs/numbers/2.jpg"
                 ),
             )
         ),
@@ -56,12 +56,12 @@ object Number : Level(
                 Lesson(
                     signName = "3",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/3.png"
+                    signFirebaseImage = "signs/numbers/3.jpg"
                 ),
                 Lesson(
                     signName = "4",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/4.png"
+                    signFirebaseImage = "signs/numbers/4.jpg"
                 ),
             )
         ),
@@ -89,12 +89,12 @@ object Number : Level(
                 Lesson(
                     signName = "5",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/5.png"
+                    signFirebaseImage = "signs/numbers/5.jpg"
                 ),
                 Lesson(
                     signName = "6",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/6.png"
+                    signFirebaseImage = "signs/numbers/6.jpg"
                 ),
             )
         ),
@@ -122,12 +122,12 @@ object Number : Level(
                 Lesson(
                     signName = "7",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/7.png"
+                    signFirebaseImage = "signs/numbers/7.jpg"
                 ),
                 Lesson(
                     signName = "8",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/8.png"
+                    signFirebaseImage = "signs/numbers/8.jpg"
                 ),
             )
         ),
@@ -155,12 +155,12 @@ object Number : Level(
                 Lesson(
                     signName = "9",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/9.png"
+                    signFirebaseImage = "signs/numbers/9.jpg"
                 ),
                 Lesson(
                     signName = "10",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/numbers/10.png"
+                    signFirebaseImage = "signs/numbers/10.jpg"
                 ),
             )
         )

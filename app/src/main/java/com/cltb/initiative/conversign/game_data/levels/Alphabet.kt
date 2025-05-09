@@ -21,22 +21,22 @@ object Alphabet : Level(
                 Lesson(
                     signName = "A",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/a.jpeg"
+                    signFirebaseImage = "signs/alphabet/a.jpg"
                 ),
                 Lesson(
                     signName = "B",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/b.jpeg"
+                    signFirebaseImage = "signs/alphabet/b.jpg"
                 ),
                 Lesson(
                     signName = "C",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/c.jpeg"
+                    signFirebaseImage = "signs/alphabet/c.jpg"
                 ),
                 Lesson(
                     signName = "D",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/d.jpeg"
+                    signFirebaseImage = "signs/alphabet/d.jpg"
                 )
             )
         ),
@@ -72,22 +72,22 @@ object Alphabet : Level(
                 Lesson(
                     signName = "E",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/e.png"
+                    signFirebaseImage = "signs/alphabet/e.jpg"
                 ),
                 Lesson(
                     signName = "F",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/f.png"
+                    signFirebaseImage = "signs/alphabet/f.jpg"
                 ),
                 Lesson(
                     signName = "G",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/g.png"
+                    signFirebaseImage = "signs/alphabet/g.jpg"
                 ),
                 Lesson(
                     signName = "H",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/h.png"
+                    signFirebaseImage = "signs/alphabet/h.jpg"
                 )
             )
         ),
@@ -126,22 +126,22 @@ object Alphabet : Level(
                 Lesson(
                     signName = "I",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/i.png"
+                    signFirebaseImage = "signs/alphabet/i.jpg"
                 ),
                 Lesson(
                     signName = "J",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/j.png"
+                    signFirebaseImage = "signs/alphabet/j.jpg"
                 ),
                 Lesson(
                     signName = "K",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/k.png"
+                    signFirebaseImage = "signs/alphabet/k.jpg"
                 ),
                 Lesson(
                     signName = "L",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/l.png"
+                    signFirebaseImage = "signs/alphabet/l.jpg"
                 )
             ),
         ),
@@ -177,22 +177,22 @@ object Alphabet : Level(
                 Lesson(
                     signName = "M",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/m.png"
+                    signFirebaseImage = "signs/alphabet/m.jpg"
                 ),
                 Lesson(
                     signName = "N",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/n.png"
+                    signFirebaseImage = "signs/alphabet/n.jpg"
                 ),
                 Lesson(
                     signName = "O",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/o.png"
+                    signFirebaseImage = "signs/alphabet/o.jpg"
                 ),
                 Lesson(
                     signName = "P",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/p.png"
+                    signFirebaseImage = "signs/alphabet/p.jpg"
                 )
             )
         ),
@@ -228,22 +228,22 @@ object Alphabet : Level(
                 Lesson(
                     signName = "Q",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/q.png"
+                    signFirebaseImage = "signs/alphabet/q.jpg"
                 ),
                 Lesson(
                     signName = "R",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/r.png"
+                    signFirebaseImage = "signs/alphabet/r.jpg"
                 ),
                 Lesson(
                     signName = "S",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/s.png"
+                    signFirebaseImage = "signs/alphabet/s.jpg"
                 ),
                 Lesson(
                     signName = "T",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/t.png"
+                    signFirebaseImage = "signs/alphabet/t.jpg"
                 )
             )
         ),
@@ -279,27 +279,27 @@ object Alphabet : Level(
                 Lesson(
                     signName = "V",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/v.png"
+                    signFirebaseImage = "signs/alphabet/v.jpg"
                 ),
                 Lesson(
                     signName = "W",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/w.png"
+                    signFirebaseImage = "signs/alphabet/w.jpg"
                 ),
                 Lesson(
                     signName = "X",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/x.png"
+                    signFirebaseImage = "signs/alphabet/x.jpg"
                 ),
                 Lesson(
                     signName = "Y",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/y.png"
+                    signFirebaseImage = "signs/alphabet/y.jpg"
                 ),
                 Lesson(
                     signName = "Z",
                     signHint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    signFirebaseImage = "signs/alphabet/z.png"
+                    signFirebaseImage = "signs/alphabet/z.jpg"
                 )
             )
         ),

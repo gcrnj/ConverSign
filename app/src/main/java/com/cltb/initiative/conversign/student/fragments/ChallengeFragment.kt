@@ -13,6 +13,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.ChallengeMilestone
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.data.Section
@@ -66,6 +67,10 @@ class ChallengeFragment : Fragment() {
         ) as? ChallengeMilestone
     }
 
+    private val randomSign by lazy {
+        selectedMilestone?.challenges?.random()?.answer ?: ""
+    }
+
     // Register permission launcher
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -88,7 +93,6 @@ class ChallengeFragment : Fragment() {
                 val elapsed = (System.currentTimeMillis() - startTimeMillis) / 1000.0
                 secondsSpent = ((elapsed * 100).roundToInt()) / 100.0 // rounded to 2 decimal places
                 println("User has been here for $secondsSpent seconds")
-                // Optionally: textView.text = "$secondsSpent seconds"
             }
         }
     }
@@ -106,6 +110,11 @@ class ChallengeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         setupOnClickListeners()
+        setupTexts()
+    }
+
+    private fun setupTexts() = with(binding){
+        challengeTextView.text = getString(R.string.challenge_sign, randomSign)
     }
 
     override fun onDestroyView() {
@@ -146,6 +155,10 @@ class ChallengeFragment : Fragment() {
                     )
                 }
             }
+        }
+
+        cameraView.setOnClickListener {
+            binding.niceJobLinearLayout.visibility = View.VISIBLE
         }
 
 

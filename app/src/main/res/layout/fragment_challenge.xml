@@ -11,19 +11,35 @@
 
 
     <TextView
+        android:id="@+id/challengeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:fontFamily="@font/k2d_extrabold"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Challenge:\nSign A" />
+
+    <TextView
         android:id="@+id/tipTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/k2d_extrabolditalic"
         android:text="@string/ai_camera_tip"
         android:textColor="@color/black"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/challengeTextView" />
 
-<!--    <ImageView-->
+    <!--    <ImageView-->
     <androidx.camera.view.PreviewView
         android:id="@+id/cameraView"
         android:layout_width="match_parent"
@@ -68,11 +84,12 @@
         android:id="@+id/niceJobLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:background="@color/nice_job_bg_color"
         android:elevation="1dp"
         android:orientation="vertical"
         android:padding="@dimen/app_padding"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:visibility="visible">
 

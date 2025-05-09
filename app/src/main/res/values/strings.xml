@@ -62,4 +62,5 @@
     <string name="badges_and_achievements">Badges and Achievements</string>
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
+    <string name="challenge_sign">Challenge:\nSign \"%1$s\"</string>
 </resources>

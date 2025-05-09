@@ -58,6 +58,7 @@ class TeachersActivity : AppCompatActivity() {
             )
             insets
         }
+        binding.levelText.text = selectedLevel.name
 
         setClickListeners()
         setupObservers()
