@@ -1,51 +1,57 @@
 package com.cltb.initiative.conversign.teacher
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cltb.initiative.conversign.R
 import com.cltb.initiative.conversign.data.sections
 import com.cltb.initiative.conversign.databinding.MilestoneSelectorBottomSheetLayoutBinding
 import com.cltb.initiative.conversign.teacher.adapter.TeacherSectionAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class MilestoneSelectorBottomSheet(private val context: Context) {
-    private val bottomSheet = BottomSheetDialog(context)
+class MilestoneSelectorBottomSheet(private val context: Context): BottomSheetDialogFragment() {
 
-    val binding = MilestoneSelectorBottomSheetLayoutBinding.inflate(LayoutInflater.from(context))
 
-    init {
-        bottomSheet.setContentView(binding.root)
-
-        // ⬇️ Enable fullscreen and dragging behavior
-        binding.root.post {
-            val bottomSheetView = bottomSheet.delegate.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-            bottomSheetView?.let {
-                val behavior = BottomSheetBehavior.from(it)
-                behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                behavior.skipCollapsed = true
-                behavior.isDraggable = true
-                // ⬇️ Force height to match the screen
-                bottomSheetView.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-                bottomSheetView.requestLayout()
-            }
-        }
+    private var _binding: MilestoneSelectorBottomSheetLayoutBinding? = null
+    private val binding get() = _binding!!
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = MilestoneSelectorBottomSheetLayoutBinding.inflate(LayoutInflater.from(context))
+        return binding.root
     }
 
-    fun show() {
-        // Set adapters for binding.sectionsRecyclerView
-        val sectionAdapter = TeacherSectionAdapter(sections)
-        binding.sectionsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = sectionAdapter
-            setHasFixedSize(true)
-        }
+    override fun onStart() {
+        super.onStart()
+        dialog?.let {
+            val bottomSheet = it.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheet?.layoutParams?.height = ViewGroup.LayoutParams.MATCH_PARENT
 
-        bottomSheet.show()
+            val sectionAdapter = TeacherSectionAdapter(sections)
+            binding.sectionsRecyclerView.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = sectionAdapter
+                setHasFixedSize(true)
+
+            // ⬇️ Enable fullscreen and dragging behavior
+            binding.root.post {
+                bottomSheet?.let {
+                    val behavior = BottomSheetBehavior.from(it)
+                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    behavior.skipCollapsed = true
+                    behavior.isDraggable = true
+                    // ⬇️ Force height to match the screen
+                    bottomSheet.requestLayout()
+                }
+            }
+        }
+        }
     }
 }
 

@@ -8,6 +8,7 @@ import java.util.Locale
 
 @Parcelize
 data class Educator(
+    val id: String = "",
     val firstName: String = "",
     val lastName: String = "",
     val email: String = "",

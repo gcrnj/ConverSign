@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/app_padding"
+    style="?selectableItemBackground"
+    android:background="@drawable/circular_corner_box"
+    android:backgroundTint="@color/student_list_bg_color">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/fullNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/k2d_extrabold"
+        app:layout_constraintBottom_toTopOf="@id/progressTextView"
+        app:layout_constraintEnd_toStartOf="@id/timeTextView"
+        app:layout_constraintStart_toEndOf="@id/profileImageView"
+        app:layout_constraintTop_toTopOf="@id/profileImageView"
+        tools:text="@tools:sample/full_names" />
+
+    <TextView
+        android:id="@+id/progressTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/app_padding"
+        android:fontFamily="@font/k2d_extrabold"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timeTextView"
+        app:layout_constraintStart_toEndOf="@id/profileImageView"
+        app:layout_constraintTop_toBottomOf="@id/fullNameTextView"
+        tools:text="In Progress"
+        tools:textColor="@color/in_progress_color" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/profileImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/profileImageView"
+        tools:text="@tools:sample/date/hhmm" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,8 @@ import com.cltb.initiative.conversign.data.Educator
 import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.utils.FireStoreUtils
+import com.cltb.initiative.conversign.utils.toEducator
+import com.cltb.initiative.conversign.utils.toStudent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +30,7 @@ class TeachersViewModel : ViewModel() {
             .get()
             .addOnSuccessListener {
                 if (it.exists()) {
-                    val json = Gson().toJson(it.data)
-                    val educator = Gson().fromJson(json, Educator::class.java)
+                    val educator = it.toEducator()
                     _educator.value = educator
                 }
             }
@@ -55,8 +56,7 @@ class TeachersViewModel : ViewModel() {
                 .await()  // Suspends the coroutine until Firestore returns the data
 
             snapshot.documents.forEach { document ->
-                val json = Gson().toJson(document.data)
-                val student = Gson().fromJson(json, Student::class.java)
+                val student = document.toStudent()
 
                 // Fetch the student's progress
                 val progress = fetchStudentProgress(document.id)

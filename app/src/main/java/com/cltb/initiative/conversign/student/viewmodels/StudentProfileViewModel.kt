@@ -9,6 +9,7 @@ import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.utils.FireStoreUtils
 import com.cltb.initiative.conversign.utils.FirebaseStorageUtils
+import com.cltb.initiative.conversign.utils.toStudent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -23,8 +24,7 @@ class StudentProfileViewModel : ViewModel() {
             .studentCollectionRef(id)
             .addSnapshotListener { value, _ ->
                 _student.value = value?.let {
-                    val json = Gson().toJson(it.data)
-                    val currentStudent = Gson().fromJson(json, Student::class.java)
+                    val currentStudent = it.toStudent()
                     if(fetchProgress) {
                         currentStudent.progress = fetchStudentProgress(id)
                     }

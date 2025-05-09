@@ -19,9 +19,14 @@
     <color name="student_selection_image_color">#CEDFE7</color>
 
     <color name="grey">#B8CDD7</color>
+    <color name="student_list_bg_color">#D9D9D9</color>
 
 
     <color name="nice_job_text_color">#066818</color>
     <color name="nice_job_bg_color">#8CD58E</color>
     <color name="nice_job_button_bg_color">#005022</color>
+
+    <color name="in_progress_color">#A07E03</color>
+    <color name="done_color">#21EE13</color>
+    <color name="no_activity_color">#E82121</color>
 </resources>

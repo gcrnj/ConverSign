@@ -2,14 +2,17 @@ package com.cltb.initiative.conversign.teacher
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cltb.initiative.conversign.MainActivity
 import com.cltb.initiative.conversign.databinding.ActivityTeachersBinding
+import com.cltb.initiative.conversign.teacher.adapter.StudentsAdapter
 import com.cltb.initiative.conversign.teacher.viewmodels.TeachersViewModel
 import com.cltb.initiative.conversign.utils.SharedPrefUtils
 
@@ -60,24 +63,37 @@ class TeachersActivity : AppCompatActivity() {
         }
 
         levelText.setOnClickListener {
-            bottomSheet.show()
+            bottomSheet.show(
+                supportFragmentManager, "MilestoneSelector",
+            )
         }
     }
 
 
     private fun setupObservers() {
-        // teachersViewModel.fetchStudents("qweASSD")
         teachersViewModel.fetchTeacherData()
         teachersViewModel.students.observe(this) { students ->
             Toast.makeText(this, students.size.toString(), Toast.LENGTH_SHORT).show()
-            students?.let {
-                binding.apply {
-
+            if (students.isEmpty()) {
+                // No students in the class code
+                binding.noProgressTextView.visibility = View.VISIBLE
+                binding.studentsRecyclerView.visibility = View.GONE
+            } else {
+                binding.noProgressTextView.visibility = View.GONE
+                binding.studentsRecyclerView.visibility = View.VISIBLE
+                binding.studentsRecyclerView.apply {
+                    adapter = StudentsAdapter(students) {
+                        Toast.makeText(this@TeachersActivity, it.fullName(), Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    layoutManager = LinearLayoutManager(this@TeachersActivity)
                 }
             }
         }
         teachersViewModel.educator.observe(this) {
             binding.classCodeTextView.text = it.classCode
+            teachersViewModel.fetchStudents(it.classCode)
+
         }
     }
 }

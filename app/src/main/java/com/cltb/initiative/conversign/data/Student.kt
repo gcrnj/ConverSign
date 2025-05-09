@@ -8,6 +8,7 @@ import java.util.Locale
 
 @Parcelize
 data class Student(
+    val id: String = "",
     val firstName: String = "",
     val lastName: String = "",
     val email: String = "",
@@ -27,4 +28,5 @@ data class Student(
         val formattedDate = format.format(date)
         return formattedDate
     }
+
 }
