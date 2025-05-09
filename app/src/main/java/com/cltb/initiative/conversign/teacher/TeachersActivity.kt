@@ -11,6 +11,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cltb.initiative.conversign.MainActivity
+import com.cltb.initiative.conversign.data.Level
+import com.cltb.initiative.conversign.data.Section
+import com.cltb.initiative.conversign.data.sections
 import com.cltb.initiative.conversign.databinding.ActivityTeachersBinding
 import com.cltb.initiative.conversign.teacher.adapter.StudentsAdapter
 import com.cltb.initiative.conversign.teacher.viewmodels.TeachersViewModel
@@ -24,8 +27,21 @@ class TeachersActivity : AppCompatActivity() {
 
     private val teachersViewModel: TeachersViewModel by viewModels()
 
+    private var selectedSection: Section = sections.first()
+    private var selectedLevel: Level = sections.first().levels.first()
+        set(value) {
+            field = value
+            binding.levelText.text = value.name
+        }
+
     private val bottomSheet by lazy {
-        MilestoneSelectorBottomSheet(this)
+        MilestoneSelectorBottomSheet(this) { pair ->
+            selectedSection = pair.first
+            selectedLevel = pair.second
+            teachersViewModel.fetchStudentsWithLevel(
+                teachersViewModel.educator.value?.classCode ?: ""
+            )
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,13 +83,22 @@ class TeachersActivity : AppCompatActivity() {
                 supportFragmentManager, "MilestoneSelector",
             )
         }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            // Reload your student list here
+            teachersViewModel.fetchStudentsWithLevel(
+                teachersViewModel.educator.value?.classCode ?: ""
+            )
+
+            // Once done:
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
 
     private fun setupObservers() {
         teachersViewModel.fetchTeacherData()
         teachersViewModel.students.observe(this) { students ->
-            Toast.makeText(this, students.size.toString(), Toast.LENGTH_SHORT).show()
             if (students.isEmpty()) {
                 // No students in the class code
                 binding.noProgressTextView.visibility = View.VISIBLE
@@ -82,10 +107,11 @@ class TeachersActivity : AppCompatActivity() {
                 binding.noProgressTextView.visibility = View.GONE
                 binding.studentsRecyclerView.visibility = View.VISIBLE
                 binding.studentsRecyclerView.apply {
-                    adapter = StudentsAdapter(students) {
-                        Toast.makeText(this@TeachersActivity, it.fullName(), Toast.LENGTH_SHORT)
-                            .show()
-                        teachersViewModel.fetchStudentsWithSection(teachersViewModel.educator.value?.classCode ?: "")
+                    adapter = StudentsAdapter(
+                        students,
+                        selectedSection,
+                        selectedLevel,
+                    ) {
                     }
                     layoutManager = LinearLayoutManager(this@TeachersActivity)
                 }
@@ -93,7 +119,7 @@ class TeachersActivity : AppCompatActivity() {
         }
         teachersViewModel.educator.observe(this) {
             binding.classCodeTextView.text = it.classCode
-            teachersViewModel.fetchStudentsWithSection(it.classCode)
+            teachersViewModel.fetchStudentsWithLevel(it.classCode)
 
         }
     }

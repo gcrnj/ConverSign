@@ -9,6 +9,7 @@ import com.cltb.initiative.conversign.data.Progress
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.utils.FireStoreUtils
 import com.cltb.initiative.conversign.utils.FirebaseStorageUtils
+import com.cltb.initiative.conversign.utils.toProgress
 import com.cltb.initiative.conversign.utils.toStudent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -44,8 +45,7 @@ class StudentProfileViewModel : ViewModel() {
             .addOnSuccessListener { doc ->
                 val document = doc.firstOrNull()
                 if (document?.exists() == true) {
-                    val json = Gson().toJson(document.data)
-                    progress = Gson().fromJson(json, Progress::class.java)
+                    progress = document.toProgress()
                 }
                 latch.countDown()
             }

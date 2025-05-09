@@ -19,13 +19,13 @@ class SectionSelectionAdapter(
         fun bind(section: Section) = with(binding) {
             sectionTitleTextView.text = section.name
             root.setOnClickListener {
-                if (progress.currentSection >= section.sectionNumber) {
+                if (progress.section >= section.sectionNumber) {
                     onClick(section)
                 }
             }
 
             // Enable / Disable
-            if (progress.currentSection >= section.sectionNumber) {
+            if (progress.section >= section.sectionNumber) {
                 root.alpha = 1f
             } else {
                 root.alpha = 0.5f

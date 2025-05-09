@@ -9,7 +9,8 @@ import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.databinding.ItemLevelBinding
 
 class TeacherLevelAdapter(
-    private val levels: List<Level>
+    private val levels: List<Level>,
+    private val onLevelSelected: (Level) -> Unit,
 ) : RecyclerView.Adapter<TeacherLevelAdapter.LevelViewHolder>() {
 
     inner class LevelViewHolder(val binding: ItemLevelBinding) : RecyclerView.ViewHolder(binding.root)
@@ -19,19 +20,23 @@ class TeacherLevelAdapter(
         return LevelViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: LevelViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LevelViewHolder, position: Int) = with(holder.binding) {
         val level = levels[position]
-        holder.binding.levelTitle.text = level.name
+        levelTitle.text = level.name
 
         // Expand/collapse milestones
         val milestoneAdapter = TeacherMilestoneAdapter(level.milestones)
-        holder.binding.milestonesRecyclerView.adapter = milestoneAdapter
-        holder.binding.milestonesRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
-//        holder.binding.milestonesRecyclerView.visibility = if (true) View.VISIBLE else View.GONE
+//        milestonesRecyclerView.adapter = milestoneAdapter
+        milestonesRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
 
-        holder.binding.levelTitle.setOnClickListener {
-//            level.isExpanded = !level.isExpanded
+        levelTitle.setOnClickListener {
             notifyItemChanged(position)
+        }
+        root.setOnClickListener {
+            onLevelSelected.invoke(level)
+        }
+        levelTitle.setOnClickListener {
+            onLevelSelected.invoke(level)
         }
     }
 

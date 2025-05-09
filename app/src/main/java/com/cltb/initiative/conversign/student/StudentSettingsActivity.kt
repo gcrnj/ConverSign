@@ -12,7 +12,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import coil.load
@@ -132,7 +131,7 @@ class StudentSettingsActivity : AppCompatActivity() {
             binding.profileName.text = profile?.fullName() ?: ""
         }
         progressViewModel.progress.observe(this) { progress ->
-            val currentSection = gameFlow.getSection(progress?.currentSection ?: 0)
+            val currentSection = gameFlow.getSection(progress?.section ?: 0)
             val sectionName = currentSection?.javaClass?.simpleName ?: ""
             binding.profileSection.text = getString(R.string.level_value, sectionName)
         }

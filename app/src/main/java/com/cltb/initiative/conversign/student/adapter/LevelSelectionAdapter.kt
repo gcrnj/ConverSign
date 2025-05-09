@@ -45,14 +45,14 @@ class LevelSelectionAdapter(
                 ),
             )
             root.setOnClickListener {
-                if (progress.currentLevel >= level.levelNumber) {
+                if (progress.level >= level.levelNumber) {
                     onClickListener.invoke(level)
                 }
             }
 
 
             // Enable / Disable
-            if (progress.currentLevel >= level.levelNumber) {
+            if (progress.level >= level.levelNumber) {
                 root.alpha = 1f
             } else {
                 root.alpha = 0.5f

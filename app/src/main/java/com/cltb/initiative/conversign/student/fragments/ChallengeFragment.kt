@@ -20,13 +20,21 @@ import com.cltb.initiative.conversign.databinding.FragmentChallengeBinding
 import com.cltb.initiative.conversign.game_data.GameFlow
 import com.cltb.initiative.conversign.student.StudentsActivity
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 class ChallengeFragment : Fragment() {
 
     private var _binding: FragmentChallengeBinding? = null
     private val binding get() = _binding!!
 
+    // For progress
+    private var startTimeMillis: Long = 0L
+    private var secondsSpent = 0.0
+    private var timerJob: Job? = null
+    private var healthUsed = 0
 
     private val progressViewModel by lazy {
         (requireActivity() as StudentsActivity).viewModel
@@ -64,8 +72,24 @@ class ChallengeFragment : Fragment() {
     ) { isGranted ->
         if (isGranted) {
             startCamera()
+            startTimer()
         } else {
             Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun startTimer() {
+        startTimeMillis = System.currentTimeMillis()
+
+        timerJob = viewLifecycleOwner.lifecycleScope.launch {
+            while (true) {
+                delay(100) // update every 100ms
+                val elapsed = (System.currentTimeMillis() - startTimeMillis) / 1000.0
+                secondsSpent = ((elapsed * 100).roundToInt()) / 100.0 // rounded to 2 decimal places
+                println("User has been here for $secondsSpent seconds")
+                // Optionally: textView.text = "$secondsSpent seconds"
+            }
         }
     }
 
@@ -84,6 +108,10 @@ class ChallengeFragment : Fragment() {
         setupOnClickListeners()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        timerJob?.cancel() // Stop timer when user leaves the fragment
+    }
     private fun setupOnClickListeners() = with(binding) {
 
         challengePreviousButton.setOnClickListener {
@@ -96,10 +124,11 @@ class ChallengeFragment : Fragment() {
         }
 
         nextButton.setOnClickListener { button ->
+            val currentProgress = progressViewModel.progress.value
             viewLifecycleOwner.lifecycleScope.launch {
                 button.isEnabled = false
                 gameFlow.next(
-                    firebaseProgress = progressViewModel.progress.value ?: return@launch,
+                    firebaseProgress = currentProgress ?: return@launch,
                     currentSection = selectedSection?.sectionNumber ?: return@launch,
                     currentLevel = selectedLevel?.levelNumber ?: return@launch,
                     currentMilestone = selectedMilestone?.number ?: return@launch
@@ -107,7 +136,13 @@ class ChallengeFragment : Fragment() {
                     // Add to database
                     progressViewModel.saveNewProgressToFireStore(
                         userId = FirebaseAuth.getInstance().currentUser?.uid ?: "",
-                        newProgress = newProgress
+                        newProgress = newProgress.copy(
+                            timeTaken = secondsSpent,
+                            healthUsed = healthUsed,
+                        ),
+                        currentProgress = currentProgress,
+                        timeTaken = secondsSpent,
+                        healthUsed = healthUsed,
                     )
                 }
             }

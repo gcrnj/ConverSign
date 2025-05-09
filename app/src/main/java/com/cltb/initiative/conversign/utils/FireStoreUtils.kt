@@ -3,6 +3,7 @@ package com.cltb.initiative.conversign.utils
 import com.cltb.initiative.conversign.data.Roles
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 object FireStoreUtils {
     // Student
@@ -34,10 +35,19 @@ object FireStoreUtils {
         userCollectionRef(role, FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
     // Levels
-    fun progressDoc(userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "") =
+    fun allProgressCollectionRef(userId: String) = studentCollectionRef(userId)
+        .collection("progress")
+
+    fun progressCollectionRef(userId: String, progressId: String) = allProgressCollectionRef(userId)
+        .document(progressId)
+
+    fun latestProgressDoc(userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: "") =
         studentCollectionRef(userId)
             .collection("progress")
-            .document(StudentKeys.PROGRESS)
+            .orderBy("section", Query.Direction.DESCENDING)
+            .orderBy("level", Query.Direction.DESCENDING)
+            .orderBy("milestone", Query.Direction.DESCENDING)
+            .limit(1)
 
     fun logout() {
         FirebaseAuth.getInstance().signOut()

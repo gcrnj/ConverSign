@@ -89,8 +89,9 @@ class LessonFragment : Fragment() {
         lessonNextButton.setOnClickListener { button ->
             button.isEnabled = false
             viewLifecycleOwner.lifecycleScope.launch {
+                val currentProgress = progressViewModel.progress.value
                 gameFlow.next(
-                    firebaseProgress = progressViewModel.progress.value ?: return@launch,
+                    firebaseProgress = currentProgress ?: return@launch,
                     currentSection = selectedSection?.sectionNumber ?: return@launch,
                     currentLevel = selectedLevel?.levelNumber ?: return@launch,
                     currentMilestone = selectedMilestone?.number ?: return@launch
@@ -98,7 +99,8 @@ class LessonFragment : Fragment() {
                     // Add to database
                     progressViewModel.saveNewProgressToFireStore(
                         userId = FirebaseAuth.getInstance().currentUser?.uid ?: "",
-                        newProgress = newProgress
+                        currentProgress = currentProgress,
+                        newProgress = newProgress,
                     )
                 }
             }

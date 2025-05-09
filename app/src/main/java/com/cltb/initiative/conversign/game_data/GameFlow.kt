@@ -84,27 +84,27 @@ class GameFlow(
                     // Not last section
                     // Go to the next section
                     nextProgress = firebaseProgress.copy(
-                        currentSection = currentSection + 1,
-                        currentLevel = 1, // Reset level
-                        currentMilestone = 1 // Reset milestone
+                        section = currentSection + 1,
+                        level = 1, // Reset level
+                        milestone = 1 // Reset milestone
                     )
                 }
             } else {
                 // Not last level
                 // Go to the next level
                 nextProgress = firebaseProgress.copy(
-                    currentSection = currentSection,
-                    currentLevel = currentLevel + 1,
-                    currentMilestone = 1 // Reset milestone
+                    section = currentSection,
+                    level = currentLevel + 1,
+                    milestone = 1 // Reset milestone
                 )
             }
         } else {
             // Not last milestone
             // Go to the next milestone
             nextProgress = firebaseProgress.copy(
-                currentSection = currentSection,
-                currentLevel = currentLevel,
-                currentMilestone = currentMilestone + 1
+                section = currentSection,
+                level = currentLevel,
+                milestone = currentMilestone + 1
             )
         }
 
@@ -114,15 +114,15 @@ class GameFlow(
         }
 
         val nextMilestone = getMilestone(
-            currentSection = nextProgress.currentSection,
-            currentLevel = nextProgress.currentLevel,
-            currentMilestone = nextProgress.currentMilestone,
+            currentSection = nextProgress.section,
+            currentLevel = nextProgress.level,
+            currentMilestone = nextProgress.milestone,
         )
         changeFragment(
             nextMilestone,
-            nextProgress.currentSection,
-            nextProgress.currentLevel,
-            nextProgress.currentMilestone,
+            nextProgress.section,
+            nextProgress.level,
+            nextProgress.milestone,
         )
 
     }

@@ -67,7 +67,7 @@ class StudentsActivity : AppCompatActivity() {
         viewModel.loadProgressFromFireStore(FirebaseAuth.getInstance().currentUser?.uid ?: "")
 
         viewModel.progress.observeOnce(this) { progress ->
-            progress ?: viewModel.setNewProgress(FirebaseAuth.getInstance().currentUser?.uid ?: "")
+            progress ?: return@observeOnce
 
             changeFragment(
                 fragmentClass = SectionFragment::class.java,
@@ -76,7 +76,7 @@ class StudentsActivity : AppCompatActivity() {
         }
         viewModel.progress.observe(this) { progress ->
             progress ?: return@observe
-            setHealth(progress.health)
+            setHealth(progress.healthUsed)
         }
     }
 

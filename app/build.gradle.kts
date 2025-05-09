@@ -75,6 +75,7 @@ dependencies {
     implementation (libs.circleimageview)
 
     implementation (libs.coil)
+    implementation (libs.androidx.swiperefreshlayout)
 
 
 }

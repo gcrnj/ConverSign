@@ -27,6 +27,6 @@
     <color name="nice_job_button_bg_color">#005022</color>
 
     <color name="in_progress_color">#A07E03</color>
-    <color name="done_color">#21EE13</color>
-    <color name="no_activity_color">#E82121</color>
+    <color name="done_color">#066818</color>
+    <color name="no_activity_color">#721c24</color>
 </resources>
