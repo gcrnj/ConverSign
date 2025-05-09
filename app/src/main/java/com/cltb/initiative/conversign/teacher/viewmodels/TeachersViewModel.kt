@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cltb.initiative.conversign.data.Educator
+import com.cltb.initiative.conversign.data.Level
+import com.cltb.initiative.conversign.data.Milestone
 import com.cltb.initiative.conversign.data.Progress
+import com.cltb.initiative.conversign.data.Section
 import com.cltb.initiative.conversign.data.Student
 import com.cltb.initiative.conversign.utils.FireStoreUtils
 import com.cltb.initiative.conversign.utils.toEducator
@@ -37,23 +40,53 @@ class TeachersViewModel : ViewModel() {
     }
 
     // Fetch students and their progress asynchronously
-    fun fetchStudents(classCode: String) {
+    fun fetchStudentsWithSection(classCode: String, section: Section) {
         // Use a coroutine to fetch data in the background
         viewModelScope.launch {
-            val studentList = fetchStudentsWithProgress(classCode)
+            val studentList = fetchStudentsProgress(
+                classCode = classCode,
+                section = section,
+            )
+            _students.value = studentList
+        }
+    }
+
+    fun fetchStudentsWithLevel(classCode: String, level: Level) {
+        viewModelScope.launch {
+            val studentList = fetchStudentsProgress(
+                classCode = classCode,
+                level = level,
+            )
+            _students.value = studentList
+        }
+    }
+
+    fun fetchStudentsWithMilestone(classCode: String, milestone: Milestone) {
+        viewModelScope.launch {
+            val studentList = fetchStudentsProgress(
+                classCode = classCode,
+                milestone = milestone,
+            )
             _students.value = studentList
         }
     }
 
     // Suspend function to fetch students with progress
-    private suspend fun fetchStudentsWithProgress(classCode: String): List<Student> {
+    private suspend fun fetchStudentsProgress(
+        classCode: String,
+        section: Section? = null,
+        level: Level? = null,
+        milestone: Milestone? = null,
+    ): List<Student> {
         return withContext(Dispatchers.IO) {
             val studentList = mutableListOf<Student>()
 
-            val snapshot = FireStoreUtils.allStudentsCollectionRef
+            val query = FireStoreUtils.allStudentsCollectionRef
                 .whereEqualTo("classCode", classCode)
-                .get()
-                .await()  // Suspends the coroutine until Firestore returns the data
+
+
+            val snapshot =
+                query.get().await()  // Suspends the coroutine until Firestore returns the data
 
             snapshot.documents.forEach { document ->
                 val student = document.toStudent()
@@ -70,10 +103,15 @@ class TeachersViewModel : ViewModel() {
     }
 
     // Suspend function to fetch a student's progress asynchronously
-    private suspend fun fetchStudentProgress(studentId: String): Progress? {
+    private suspend fun fetchStudentProgress(
+        studentId: String,
+        section: Section? = null,
+        level: Level? = null,
+        milestone: Milestone? = null,
+    ): Progress? {
         return withContext(Dispatchers.IO) {
             val progressDoc = FireStoreUtils
-                .studentCollectionRef(studentId)
+                .progressDoc(studentId)
                 .collection("progress")
                 .get()
                 .await()  // Suspends the coroutine until Firestore returns the data

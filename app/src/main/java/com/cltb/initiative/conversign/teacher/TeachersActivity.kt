@@ -85,6 +85,7 @@ class TeachersActivity : AppCompatActivity() {
                     adapter = StudentsAdapter(students) {
                         Toast.makeText(this@TeachersActivity, it.fullName(), Toast.LENGTH_SHORT)
                             .show()
+                        teachersViewModel.fetchStudentsWithSection(teachersViewModel.educator.value?.classCode ?: "")
                     }
                     layoutManager = LinearLayoutManager(this@TeachersActivity)
                 }
@@ -92,7 +93,7 @@ class TeachersActivity : AppCompatActivity() {
         }
         teachersViewModel.educator.observe(this) {
             binding.classCodeTextView.text = it.classCode
-            teachersViewModel.fetchStudents(it.classCode)
+            teachersViewModel.fetchStudentsWithSection(it.classCode)
 
         }
     }

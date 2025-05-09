@@ -29,10 +29,7 @@ class StudentsAdapter(
             // Imageview
             val studentRef = FirebaseStorageUtils.studentProfileRef(student.id)
             studentRef.downloadUrl.addOnSuccessListener { uri ->
-                binding.profileImageView.load(uri) {
-                    placeholder(R.drawable.profile_sample) // shown while loading
-                    error(R.drawable.profile_sample)         // shown if loading fails
-                }
+                binding.profileImageView.load(uri)
             }
         }
 
