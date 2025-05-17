@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.cltb.initiative.conversign.R
+import com.cltb.initiative.conversign.analyzer.ImageAnalyzer
 import com.cltb.initiative.conversign.data.ChallengeMilestone
 import com.cltb.initiative.conversign.data.Level
 import com.cltb.initiative.conversign.data.Section
@@ -83,6 +85,29 @@ class ChallengeFragment : Fragment() {
         }
     }
 
+    private val imageAnalyzer by lazy {
+        ImageAnalysis.Builder()
+            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+            .build()
+            .also {
+                it.setAnalyzer(
+                    ContextCompat.getMainExecutor(requireContext()),
+                    ImageAnalyzer(requireContext(), ::onAnswerCaptured) // your custom analyzer
+                )
+            }
+    }
+
+    private fun onAnswerCaptured(answer: String) {
+        if(binding.niceJobLinearLayout.visibility == View.VISIBLE) {
+            return
+        } else if (answer != randomSign) {
+            binding.signDetectedTextView.text = answer
+            return
+        }
+//        healthUsed += 1
+        binding.signDetectedTextView.text = answer
+        binding.niceJobLinearLayout.visibility = View.VISIBLE
+    }
 
     private fun startTimer() {
         startTimeMillis = System.currentTimeMillis()
@@ -92,7 +117,6 @@ class ChallengeFragment : Fragment() {
                 delay(100) // update every 100ms
                 val elapsed = (System.currentTimeMillis() - startTimeMillis) / 1000.0
                 secondsSpent = ((elapsed * 100).roundToInt()) / 100.0 // rounded to 2 decimal places
-                println("User has been here for $secondsSpent seconds")
             }
         }
     }
@@ -179,8 +203,12 @@ class ChallengeFragment : Fragment() {
 
             try {
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview)
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageAnalyzer
+                )
+                // call imageAnalyzer.analyze
             } catch (exc: Exception) {
+                exc.printStackTrace()
                 Toast.makeText(requireActivity(), "Camera Binding failed", Toast.LENGTH_LONG).show()
             }
         }, ContextCompat.getMainExecutor(requireActivity()))

@@ -77,5 +77,7 @@ dependencies {
     implementation (libs.coil)
     implementation (libs.androidx.swiperefreshlayout)
 
+    implementation (libs.tensorflow.lite)
+
 
 }

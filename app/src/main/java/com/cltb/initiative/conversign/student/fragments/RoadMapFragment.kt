@@ -72,7 +72,7 @@ class RoadMapFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.progress.observe(viewLifecycleOwner) { progress ->
             progress ?: return@observe
-            if (progress.section == (selectedSection?.sectionNumber ?: 0)) {
+            if (progress.section == (selectedSection?.sectionNumber ?: 0) && progress.level == (selectedLevel?.levelNumber ?: 0)) {
                 currentLesson = progress.milestone
             } else {
                 currentLesson = selectedLevel?.milestones?.size ?: 0
@@ -89,8 +89,8 @@ class RoadMapFragment : Fragment() {
                     // Navigate to lesson
                     gameFlow.changeFragment(
                         milestone = milestone,
-                        currentSection = progress.section,
-                        currentLevel = progress.level,
+                        currentSection = selectedSection?.sectionNumber ?: 1,
+                        currentLevel = selectedLevel?.levelNumber ?: 1,
                         currentMilestone = milestone.number,
                         popCurrentFragment = false,
                     )

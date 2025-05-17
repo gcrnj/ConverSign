@@ -154,10 +154,10 @@ object Alphabet : Level(
                     hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
                     answer = "I"
                 ),
-                Challenge(
-                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    answer = "J"
-                ),
+//                Challenge(
+//                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+//                    answer = "J"
+//                ),
                 Challenge(
                     hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
                     answer = "K"
@@ -320,10 +320,10 @@ object Alphabet : Level(
                     hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
                     answer = "X"
                 ),
-                Challenge(
-                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
-                    answer = "Z"
-                ),
+//                Challenge(
+//                    hint = "Close your hand into a fist with your thumb resting on the side of your index finger. The rest of the fingers are curled inward.",
+//                    answer = "Z"
+//                ),
             )
         )
     )
